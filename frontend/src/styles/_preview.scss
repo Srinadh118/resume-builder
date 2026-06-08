@@ -101,8 +101,8 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: $bg-surface;
+  color: $text-primary;
   text-align: left;
   font-family: var(--font-serif, "Georgia", "Times New Roman", serif);
   line-height: 1.5;
