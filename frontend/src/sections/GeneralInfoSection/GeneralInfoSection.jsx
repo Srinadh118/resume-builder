@@ -74,6 +74,9 @@ function GeneralInfoSection({ data = {}, onChange }) {
           placeholder="Brief summary of your professional background, skills, and key achievements..."
           rows="5"
         />
+        <p className="section-form__input-help" style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #666)', marginTop: '4px' }}>
+          Supports markdown links (e.g. <code>[My Portfolio](https://example.com)</code>) and plain URLs.
+        </p>
       </div>
     </div>
   )

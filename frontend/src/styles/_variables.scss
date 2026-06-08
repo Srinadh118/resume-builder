@@ -51,6 +51,7 @@ $theme-light: (
   text-primary: $gray-900,
   text-secondary: $gray-700,
   text-tertiary: $gray-600,
+  text-accent: $white,
   border-light: $gray-300,
   border-medium: $gray-500,
   accent: $gray-900,
@@ -69,6 +70,7 @@ $theme-dark: (
   text-primary: $gray-100,
   text-secondary: $gray-600,
   text-tertiary: $gray-500,
+  text-accent: $gray-900,
   border-light: $gray-800,
   border-medium: $gray-700,
   accent: $white,
@@ -87,6 +89,7 @@ $theme-stealth: (
   text-primary: #eff3f8,
   text-secondary: #6c8cad,
   text-tertiary: #3a5570,
+  text-accent: #fff,
   border-light: #0a1520,
   border-medium: #0f2130,
   accent: $purple,
@@ -107,6 +110,7 @@ $bg-surface: var(--bg-surface);
 $text-primary: var(--text-primary);
 $text-secondary: var(--text-secondary);
 $text-tertiary: var(--text-tertiary);
+$text-accent: var(--text-accent);
 $border-light: var(--border-light);
 $border-medium: var(--border-medium);
 $accent: var(--accent);
@@ -120,14 +124,14 @@ $code-bg: var(--code-bg);
 // ============================================
 // Sizing & Spacing
 // ============================================
-$spacing-xs: 0.25rem;   // 4px
-$spacing-sm: 0.5rem;    // 8px
-$spacing-md: 1rem;      // 16px
-$spacing-lg: 1.5rem;    // 24px
-$spacing-xl: 2rem;      // 32px
-$spacing-2xl: 3rem;     // 48px
-$spacing-3xl: 4rem;     // 64px
-$spacing-4xl: 6rem;     // 96px
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 3rem; // 48px
+$spacing-3xl: 4rem; // 64px
+$spacing-4xl: 6rem; // 96px
 
 $border-radius-sm: 4px;
 $border-radius-md: 6px;

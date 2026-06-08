@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatContactLink, renderTextWithLinks } from '../../utils/linkFormatter'
 
 const formatDate = (dateString) => {
   if (!dateString) return ''
@@ -22,18 +23,56 @@ function ResumeTemplate1({ resume }) {
         </h1>
         <p className="resume-template__title">{generalInfo.title || generalInfo.jobTitle || ''}</p>
         <div className="resume-template__contact">
-          {contactInfo.email && <span>{contactInfo.email}</span>}
-          {contactInfo.phone && <span>{contactInfo.phone}</span>}
+          {contactInfo.email && (
+            <span>
+              <a href={formatContactLink('email', contactInfo.email)} className="resume-link">
+                {contactInfo.email}
+              </a>
+            </span>
+          )}
+          {contactInfo.phone && (
+            <span>
+              <a href={formatContactLink('phone', contactInfo.phone)} className="resume-link">
+                {contactInfo.phone}
+              </a>
+            </span>
+          )}
           {contactInfo.location && <span>{contactInfo.location}</span>}
-          {contactInfo.linkedin && <span>{contactInfo.linkedin}</span>}
-          {contactInfo.github && <span>{contactInfo.github}</span>}
+          {contactInfo.website && (
+            <span>
+              <a href={formatContactLink('website', contactInfo.website)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                {contactInfo.website.replace(/^https?:\/\//, '')}
+              </a>
+            </span>
+          )}
+          {contactInfo.linkedin && (
+            <span>
+              <a href={formatContactLink('linkedin', contactInfo.linkedin)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            </span>
+          )}
+          {contactInfo.github && (
+            <span>
+              <a href={formatContactLink('github', contactInfo.github)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
+            </span>
+          )}
+          {contactInfo.twitter && (
+            <span>
+              <a href={formatContactLink('twitter', contactInfo.twitter)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                Twitter
+              </a>
+            </span>
+          )}
         </div>
       </header>
 
       {generalInfo.summary && (
         <section className="resume-template__section">
           <h2 className="resume-template__section-title">Professional Summary</h2>
-          <p className="resume-template__text">{generalInfo.summary}</p>
+          <p className="resume-template__text">{renderTextWithLinks(generalInfo.summary)}</p>
         </section>
       )}
 
@@ -49,11 +88,11 @@ function ResumeTemplate1({ resume }) {
                 </span>
               </div>
               <p className="resume-template__item-subtitle">{job.company}</p>
-              {job.description && <p className="resume-template__text">{job.description}</p>}
+              {job.description && <p className="resume-template__text">{renderTextWithLinks(job.description)}</p>}
               {job.responsibilities && job.responsibilities.length > 0 && (
                 <ul className="resume-template__responsibilities">
                   {job.responsibilities.map((resp, i) => (
-                    <li key={i} className="resume-template__text">{resp}</li>
+                    <li key={i} className="resume-template__text">{renderTextWithLinks(resp)}</li>
                   ))}
                 </ul>
               )}
@@ -74,7 +113,7 @@ function ResumeTemplate1({ resume }) {
                 </span>
               </div>
               <p className="resume-template__item-subtitle">{edu.school}</p>
-              {edu.description && <p className="resume-template__text">{edu.description}</p>}
+              {edu.description && <p className="resume-template__text">{renderTextWithLinks(edu.description)}</p>}
             </div>
           ))}
         </section>

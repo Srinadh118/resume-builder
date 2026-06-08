@@ -193,7 +193,7 @@
 
     &--primary {
       background-color: $accent;
-      color: $white;
+      color: $text-accent;
       box-shadow: 0 4px 14px rgba(122, 59, 219, 0.3);
 
       &:hover {
@@ -273,7 +273,7 @@
       height: 6px;
       background-color: $border-light;
       border-radius: 1px;
-      box-shadow: 
+      box-shadow:
         0 12px 0 $border-light,
         0 20px 0 $border-light,
         0 28px 0 $border-light,
@@ -316,9 +316,11 @@
     .hero__card--1 {
       transform: translate(-100px, 30px) rotate(-15deg);
     }
+
     .hero__card--2 {
       transform: translate(100px, -30px) rotate(15deg);
     }
+
     .hero__card--3 {
       transform: translate(0, -10px) scale(1.05);
       box-shadow: 0 20px 40px rgba(122, 59, 219, 0.25);

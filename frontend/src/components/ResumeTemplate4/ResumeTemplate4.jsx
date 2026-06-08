@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatContactLink, renderTextWithLinks } from '../../utils/linkFormatter'
 
 const formatDate = (dateString) => {
   if (!dateString) return ''
@@ -24,11 +25,55 @@ function ResumeTemplate4({ resume }) {
           // {generalInfo.title || generalInfo.jobTitle || ''}
         </p>
         <div className="resume-template__contact" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.75rem', color: '#666', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-          {contactInfo.email && <span>email: {contactInfo.email}</span>}
-          {contactInfo.phone && <span>tel: {contactInfo.phone}</span>}
+          {contactInfo.email && (
+            <span>
+              email:{' '}
+              <a href={formatContactLink('email', contactInfo.email)} className="resume-link">
+                {contactInfo.email}
+              </a>
+            </span>
+          )}
+          {contactInfo.phone && (
+            <span>
+              tel:{' '}
+              <a href={formatContactLink('phone', contactInfo.phone)} className="resume-link">
+                {contactInfo.phone}
+              </a>
+            </span>
+          )}
           {contactInfo.location && <span>loc: {contactInfo.location}</span>}
-          {contactInfo.linkedin && <span>ln: {contactInfo.linkedin}</span>}
-          {contactInfo.github && <span>git: {contactInfo.github}</span>}
+          {contactInfo.website && (
+            <span>
+              web:{' '}
+              <a href={formatContactLink('website', contactInfo.website)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                {contactInfo.website.replace(/^https?:\/\//, '')}
+              </a>
+            </span>
+          )}
+          {contactInfo.linkedin && (
+            <span>
+              ln:{' '}
+              <a href={formatContactLink('linkedin', contactInfo.linkedin)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                {contactInfo.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '')}
+              </a>
+            </span>
+          )}
+          {contactInfo.github && (
+            <span>
+              git:{' '}
+              <a href={formatContactLink('github', contactInfo.github)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                {contactInfo.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
+              </a>
+            </span>
+          )}
+          {contactInfo.twitter && (
+            <span>
+              tw:{' '}
+              <a href={formatContactLink('twitter', contactInfo.twitter)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                {contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}
+              </a>
+            </span>
+          )}
         </div>
       </header>
 
@@ -38,7 +83,7 @@ function ResumeTemplate4({ resume }) {
             [01] summary
           </h2>
           <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333' }}>
-            {generalInfo.summary}
+            {renderTextWithLinks(generalInfo.summary)}
           </p>
         </section>
       )}
@@ -61,11 +106,11 @@ function ResumeTemplate4({ resume }) {
               <p className="resume-template__item-subtitle" style={{ fontFamily: '"Roboto Mono", monospace', margin: '2px 0 6px 0', fontSize: '0.75rem', color: '#444' }}>
                 @ {job.company}
               </p>
-              {job.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333' }}>{job.description}</p>}
+              {job.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333' }}>{renderTextWithLinks(job.description)}</p>}
               {job.responsibilities && job.responsibilities.length > 0 && (
                 <ul className="resume-template__responsibilities" style={{ paddingLeft: '15px', margin: '4px 0 0 0' }}>
                   {job.responsibilities.map((resp, i) => (
-                    <li key={i} className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333', marginBottom: '2px' }}>{resp}</li>
+                    <li key={i} className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333', marginBottom: '2px' }}>{renderTextWithLinks(resp)}</li>
                   ))}
                 </ul>
               )}
@@ -92,7 +137,7 @@ function ResumeTemplate4({ resume }) {
               <p className="resume-template__item-subtitle" style={{ fontFamily: '"Roboto Mono", monospace', margin: '2px 0 0 0', fontSize: '0.75rem', color: '#444' }}>
                 @ {edu.school}
               </p>
-              {edu.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333', marginTop: '4px' }}>{edu.description}</p>}
+              {edu.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333', marginTop: '4px' }}>{renderTextWithLinks(edu.description)}</p>}
             </div>
           ))}
         </section>

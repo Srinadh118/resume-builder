@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
+import { MoonStar, Sun } from "lucide-react"
 
 function Navbar() {
-  const { user, logout } = useAuth()
+  const { user, loading: authLoading } = useAuth();
+  console.log('Dashboard user:', user);
+  console.log('Navbar user:', user);
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -15,6 +18,8 @@ function Navbar() {
   }
 
   const isActive = (path) => location.pathname === path ? 'navbar__link navbar__link--active' : 'navbar__link'
+
+
 
   return (
     <nav className="navbar">
@@ -36,10 +41,10 @@ function Navbar() {
             <Link to="/dashboard" className={isActive('/dashboard')} onClick={() => setMenuOpen(false)}>Dashboard</Link>
             <Link to="/editor" className={isActive('/editor')} onClick={() => setMenuOpen(false)}>Editor</Link>
             <Link to="/settings" className={isActive('/settings')} onClick={() => setMenuOpen(false)}>Settings</Link>
-            <span className="navbar__user">{user.firstName}</span>
+            <span className="navbar__user">{user?.firstName ?? ''}</span>
             <button onClick={handleLogout} className="navbar__logout">Logout</button>
             <button onClick={toggleTheme} className="navbar__theme-toggle" aria-label="Toggle Theme">
-              {theme === 'light' ? '🌙' : '☀️'}
+              {theme === 'light' ? <MoonStar /> : <Sun />}
             </button>
           </>
         ) : (
@@ -47,13 +52,13 @@ function Navbar() {
             <Link to="/login" className={isActive('/login')} onClick={() => setMenuOpen(false)}>Log In</Link>
             <Link to="/register" className="navbar__link navbar__link--cta" onClick={() => setMenuOpen(false)}>Get Started</Link>
             <button onClick={toggleTheme} className="navbar__theme-toggle" aria-label="Toggle Theme">
-              {theme === 'light' ? '🌙' : '☀️'}
+              {theme === 'light' ? <MoonStar /> : <Sun />}
             </button>
           </>
         )}
       </div>
     </nav>
-  )
+  );
 }
 
 export default Navbar

@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatContactLink, renderTextWithLinks } from '../../utils/linkFormatter'
 
 const formatDate = (dateString) => {
   if (!dateString) return ''
@@ -16,94 +17,164 @@ function ResumeTemplate2({ resume }) {
 
   return (
     <div className="resume-template resume-template--classic" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
-      <header className="resume-template__header" style={{ borderBottom: '2px solid #333', paddingBottom: '10px', marginBottom: '20px' }}>
-        <h1 className="resume-template__name" style={{ fontSize: '2rem', fontWeight: 'bold', margin: '0 0 5px 0', color: '#111' }}>
-          {generalInfo.firstName || ''} {generalInfo.lastName || ''}
-        </h1>
-        <p className="resume-template__title" style={{ fontSize: '1.1rem', fontStyle: 'italic', margin: '0 0 10px 0', color: '#444' }}>
-          {generalInfo.title || generalInfo.jobTitle || ''}
-        </p>
-        <div className="resume-template__contact" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', fontSize: '0.85rem', color: '#555' }}>
-          {contactInfo.email && <span>Email: {contactInfo.email}</span>}
-          {contactInfo.phone && <span>Phone: {contactInfo.phone}</span>}
-          {contactInfo.location && <span>Location: {contactInfo.location}</span>}
-          {contactInfo.linkedin && <span>LinkedIn: {contactInfo.linkedin}</span>}
-          {contactInfo.github && <span>GitHub: {contactInfo.github}</span>}
+      {/* Sidebar with Profile & Contact details */}
+      <aside className="resume-template__sidebar">
+        <div className="resume-template__profile">
+          <h1 className="resume-template__name">
+            {generalInfo.firstName || ''} {generalInfo.lastName || ''}
+          </h1>
+          <p className="resume-template__title">
+            {generalInfo.title || generalInfo.jobTitle || ''}
+          </p>
         </div>
-      </header>
 
-      {generalInfo.summary && (
-        <section className="resume-template__section" style={{ marginBottom: '20px' }}>
-          <h2 className="resume-template__section-title" style={{ fontSize: '1.2rem', textTransform: 'uppercase', borderBottom: '1px solid #ccc', paddingBottom: '3px', color: '#222' }}>
-            Professional Summary
-          </h2>
-          <p className="resume-template__text" style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#333' }}>
-            {generalInfo.summary}
-          </p>
-        </section>
-      )}
-
-      {experience.length > 0 && (
-        <section className="resume-template__section" style={{ marginBottom: '20px' }}>
-          <h2 className="resume-template__section-title" style={{ fontSize: '1.2rem', textTransform: 'uppercase', borderBottom: '1px solid #ccc', paddingBottom: '3px', color: '#222' }}>
-            Professional Experience
-          </h2>
-          {experience.map((job, index) => (
-            <div key={job._id || index} className="resume-template__item" style={{ marginBottom: '15px' }}>
-              <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
-                <span style={{ fontSize: '1rem', color: '#111' }}>{job.position}</span>
-                <span style={{ fontSize: '0.9rem', color: '#555' }}>
-                  {job.startDate ? formatDate(job.startDate) : ''} – {job.current ? 'Present' : (job.endDate ? formatDate(job.endDate) : '')}
-                </span>
+        <div className="resume-template__contact-classic">
+          {contactInfo.email && (
+            <div>
+              <strong>Email:</strong>
+              <div>
+                <a href={formatContactLink('email', contactInfo.email)} className="resume-link">
+                  {contactInfo.email}
+                </a>
               </div>
-              <p className="resume-template__item-subtitle" style={{ margin: '2px 0 5px 0', fontStyle: 'italic', color: '#444' }}>
-                {job.company}
-              </p>
-              {job.description && <p className="resume-template__text" style={{ fontSize: '0.9rem', lineHeight: '1.5', color: '#333' }}>{job.description}</p>}
-              {job.responsibilities && job.responsibilities.length > 0 && (
-                <ul className="resume-template__responsibilities" style={{ paddingLeft: '20px', marginTop: '5px' }}>
-                  {job.responsibilities.map((resp, i) => (
-                    <li key={i} className="resume-template__text" style={{ fontSize: '0.9rem', color: '#333', marginBottom: '3px' }}>{resp}</li>
-                  ))}
-                </ul>
-              )}
             </div>
-          ))}
-        </section>
-      )}
-
-      {education.length > 0 && (
-        <section className="resume-template__section" style={{ marginBottom: '20px' }}>
-          <h2 className="resume-template__section-title" style={{ fontSize: '1.2rem', textTransform: 'uppercase', borderBottom: '1px solid #ccc', paddingBottom: '3px', color: '#222' }}>
-            Education
-          </h2>
-          {education.map((edu, index) => (
-            <div key={edu._id || index} className="resume-template__item" style={{ marginBottom: '10px' }}>
-              <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
-                <span style={{ fontSize: '1rem', color: '#111' }}>{edu.degree} {edu.fieldOfStudy ? `in ${edu.fieldOfStudy}` : ''}</span>
-                <span style={{ fontSize: '0.9rem', color: '#555' }}>
-                  {edu.startDate ? formatDate(edu.startDate) : ''} – {edu.current ? 'Present' : (edu.endDate ? formatDate(edu.endDate) : '')}
-                </span>
+          )}
+          {contactInfo.phone && (
+            <div>
+              <strong>Phone:</strong>
+              <div>
+                <a href={formatContactLink('phone', contactInfo.phone)} className="resume-link">
+                  {contactInfo.phone}
+                </a>
               </div>
-              <p className="resume-template__item-subtitle" style={{ margin: '2px 0 5px 0', fontStyle: 'italic', color: '#444' }}>{edu.school}</p>
-              {edu.description && <p className="resume-template__text" style={{ fontSize: '0.9rem', color: '#333' }}>{edu.description}</p>}
             </div>
-          ))}
-        </section>
-      )}
+          )}
+          {contactInfo.location && (
+            <div>
+              <strong>Location:</strong>
+              <div>{contactInfo.location}</div>
+            </div>
+          )}
+          {contactInfo.website && (
+            <div>
+              <strong>Website:</strong>
+              <div>
+                <a href={formatContactLink('website', contactInfo.website)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                  {contactInfo.website.replace(/^https?:\/\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+          {contactInfo.linkedin && (
+            <div>
+              <strong>LinkedIn:</strong>
+              <div style={{ wordBreak: 'break-all' }}>
+                <a href={formatContactLink('linkedin', contactInfo.linkedin)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                  {contactInfo.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+          {contactInfo.github && (
+            <div>
+              <strong>GitHub:</strong>
+              <div style={{ wordBreak: 'break-all' }}>
+                <a href={formatContactLink('github', contactInfo.github)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                  {contactInfo.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+          {contactInfo.twitter && (
+            <div>
+              <strong>Twitter:</strong>
+              <div style={{ wordBreak: 'break-all' }}>
+                <a href={formatContactLink('twitter', contactInfo.twitter)} className="resume-link" target="_blank" rel="noopener noreferrer">
+                  @{contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
 
-      {skills.length > 0 && (
-        <section className="resume-template__section" style={{ marginBottom: '20px' }}>
-          <h2 className="resume-template__section-title" style={{ fontSize: '1.2rem', textTransform: 'uppercase', borderBottom: '1px solid #ccc', paddingBottom: '3px', color: '#222' }}>
-            Skills & Expertise
-          </h2>
-          <p className="resume-template__text" style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#333' }}>
-            {skills.join(' | ')}
-          </p>
-        </section>
-      )}
+      {/* Main content body */}
+      <main className="resume-template__main">
+        {generalInfo.summary && (
+          <section className="resume-template__section">
+            <h2 className="resume-template__section-title">
+              Professional Summary
+            </h2>
+            <p className="resume-template__text">
+              {renderTextWithLinks(generalInfo.summary)}
+            </p>
+          </section>
+        )}
+
+        {experience.length > 0 && (
+          <section className="resume-template__section">
+            <h2 className="resume-template__section-title">
+              Professional Experience
+            </h2>
+            {experience.map((job, index) => (
+              <div key={job._id || index} className="resume-template__item">
+                <div className="resume-template__item-header">
+                  <span className="resume-template__item-title">{job.position}</span>
+                  <span className="resume-template__item-date">
+                    {job.startDate ? formatDate(job.startDate) : ''} – {job.current ? 'Present' : (job.endDate ? formatDate(job.endDate) : '')}
+                  </span>
+                </div>
+                <p className="resume-template__item-subtitle">
+                  {job.company}
+                </p>
+                {job.description && <p className="resume-template__text">{renderTextWithLinks(job.description)}</p>}
+                {job.responsibilities && job.responsibilities.length > 0 && (
+                  <ul className="resume-template__responsibilities">
+                    {job.responsibilities.map((resp, i) => (
+                      <li key={i} className="resume-template__text">{renderTextWithLinks(resp)}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {education.length > 0 && (
+          <section className="resume-template__section">
+            <h2 className="resume-template__section-title">
+              Education
+            </h2>
+            {education.map((edu, index) => (
+              <div key={edu._id || index} className="resume-template__item">
+                <div className="resume-template__item-header">
+                  <span className="resume-template__item-title">{edu.degree} {edu.fieldOfStudy ? `in ${edu.fieldOfStudy}` : ''}</span>
+                  <span className="resume-template__item-date">
+                    {edu.startDate ? formatDate(edu.startDate) : ''} – {edu.current ? 'Present' : (edu.endDate ? formatDate(edu.endDate) : '')}
+                  </span>
+                </div>
+                <p className="resume-template__item-subtitle">{edu.school}</p>
+                {edu.description && <p className="resume-template__text">{renderTextWithLinks(edu.description)}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {skills.length > 0 && (
+          <section className="resume-template__section">
+            <h2 className="resume-template__section-title">
+              Skills & Expertise
+            </h2>
+            <p className="resume-template__text">
+              {skills.join(' | ')}
+            </p>
+          </section>
+        )}
+      </main>
     </div>
   )
 }
 
 export default ResumeTemplate2
+
+

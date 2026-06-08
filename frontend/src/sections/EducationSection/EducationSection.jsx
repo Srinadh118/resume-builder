@@ -188,6 +188,9 @@ function EducationSection({ data = [], onChange }) {
               placeholder="Relevant coursework, honors, or activities..."
               rows="4"
             />
+            <p className="section-form__input-help" style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #666)', marginTop: '4px' }}>
+              Supports markdown links (e.g. <code>[My Course](https://example.com)</code>) and plain URLs.
+            </p>
           </div>
 
           <div className="section-form__card-actions">

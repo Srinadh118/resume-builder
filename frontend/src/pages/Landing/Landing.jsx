@@ -1,27 +1,28 @@
 import Hero from "../../components/Hero/Hero";
 import FeatureCard from "../../components/FeatureCard/FeatureCard";
+import { LockKeyhole, Palette, Sparkles, Zap } from "lucide-react";
 
 const features = [
   {
-    icon: "✨",
+    icon: <Sparkles />,
     title: "ATS-Optimized",
     description:
       "Our intelligent scoring system ensures your resume passes through applicant tracking systems with flying colors.",
   },
   {
-    icon: "🎨",
+    icon: <Palette />,
     title: "Beautiful Templates",
     description:
       "Choose from professionally designed templates that make your resume stand out to recruiters.",
   },
   {
-    icon: "⚡",
+    icon: <Zap />,
     title: "Real-time Preview",
     description:
       "See changes instantly as you build your resume. No more guesswork in formatting and layout.",
   },
   {
-    icon: "🔒",
+    icon: <LockKeyhole />,
     title: "Secure & Private",
     description:
       "Your data is encrypted and stored securely. We never share your personal information with third parties.",

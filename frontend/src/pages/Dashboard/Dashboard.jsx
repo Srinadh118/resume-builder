@@ -6,7 +6,7 @@ import { demoHighATS, demoLowATS } from '../../api/demoResumes'
 import ATSProgress from '../../components/ATSProgress/ATSProgress'
 
 function Dashboard() {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const navigate = useNavigate()
   const { resumes, dashboardData, loading, error, fetchDashboardData, deleteResume, createResume } = useResumes()
 
@@ -29,7 +29,7 @@ function Dashboard() {
       delete cleanData._id
       delete cleanData.user
       delete cleanData.isDummy
-      
+
       const newResume = await createResume(cleanData)
       if (newResume) {
         alert(`Successfully cloned "${cleanData.generalInfo.firstName}'s" resume!`)
@@ -49,7 +49,7 @@ function Dashboard() {
     <div className="dashboard">
       <div className="dashboard__header">
         <div>
-          <h1 className="dashboard__title">Welcome back, {user?.firstName || 'Developer'}</h1>
+          <h1 className="dashboard__title">Welcome back, {user?.firstName || ''}</h1>
           <p className="dashboard__subtitle">Build, manage, and optimize your ATS-approved resumes.</p>
         </div>
         <Link to="/editor" className="dashboard__new-btn">
@@ -75,7 +75,7 @@ function Dashboard() {
         </div>
       )}
 
-      {loading && <div className="dashboard__loading">Loading dashboard...</div>}
+      {(authLoading || loading) && <div className="dashboard__loading">Loading dashboard...</div>}
       {error && <div className="dashboard__error">{error}</div>}
 
       {!loading && !error && resumes.length === 0 && (
@@ -161,7 +161,7 @@ function Dashboard() {
               </p>
             </div>
             <div className="resume-card__actions">
-              <button 
+              <button
                 className="resume-card__btn resume-card__btn--edit"
                 onClick={() => handleCloneDemo(demoHighATS)}
               >
@@ -183,7 +183,7 @@ function Dashboard() {
               </p>
             </div>
             <div className="resume-card__actions">
-              <button 
+              <button
                 className="resume-card__btn resume-card__btn--edit"
                 onClick={() => handleCloneDemo(demoLowATS)}
               >

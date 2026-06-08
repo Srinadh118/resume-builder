@@ -15,6 +15,7 @@
   --text-primary: #{map.get($theme-map, text-primary)};
   --text-secondary: #{map.get($theme-map, text-secondary)};
   --text-tertiary: #{map.get($theme-map, text-tertiary)};
+  --text-accent: #{map.get($theme-map, text-accent)};
   --border-light: #{map.get($theme-map, border-light)};
   --border-medium: #{map.get($theme-map, border-medium)};
   --accent: #{map.get($theme-map, accent)};
@@ -64,9 +65,10 @@
   transition: background-color $transition-fast, box-shadow $transition-fast, transform $transition-fast;
 
   &:hover {
-    @if $bg == transparent {
+    @if $bg ==transparent {
       background-color: rgba(122, 59, 219, 0.1);
     }
+
     transform: translateY(-1px);
   }
 
@@ -144,11 +146,15 @@
 }
 
 @mixin animate-slide($duration: 0.5s, $direction: up) {
-  @if $direction == up {
+  @if $direction ==up {
     animation: slideUp $duration ease-out;
-  } @else if $direction == right {
+  }
+
+  @else if $direction ==right {
     animation: slideRight $duration ease-out;
-  } @else if $direction == left {
+  }
+
+  @else if $direction ==left {
     animation: slideLeft $duration ease-out;
   }
 }
@@ -209,14 +215,28 @@
 // Breakpoints
 // ----------------------------------
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == sm {
-    @media (min-width: 576px) { @content; }
-  } @else if $breakpoint == md {
-    @media (min-width: 768px) { @content; }
-  } @else if $breakpoint == lg {
-    @media (min-width: 1024px) { @content; }
-  } @else if $breakpoint == xl {
-    @media (min-width: 1280px) { @content; }
+  @if $breakpoint ==sm {
+    @media (min-width: 576px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==lg {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==xl {
+    @media (min-width: 1280px) {
+      @content;
+    }
   }
 }
 
@@ -255,12 +275,10 @@
 // Skeleton Loading
 // ----------------------------------
 @mixin skeleton-loading() {
-  background: linear-gradient(
-    90deg,
-    $bg-element 25%,
-    $bg-surface 50%,
-    $bg-element 75%
-  );
+  background: linear-gradient(90deg,
+      $bg-element 25%,
+      $bg-surface 50%,
+      $bg-element 75%);
   background-size: 200% 100%;
   animation: skeleton 1.5s infinite linear;
   border-radius: $border-radius-md;

@@ -188,6 +188,9 @@ function ExperienceSection({ data = [], onChange }) {
               placeholder="Provide a general overview of your role..."
               rows="3"
             />
+            <p className="section-form__input-help" style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #666)', marginTop: '4px' }}>
+              Supports markdown links (e.g. <code>[Project](https://example.com)</code>) and plain URLs.
+            </p>
           </div>
 
           <div className="section-form__group">
@@ -199,6 +202,9 @@ function ExperienceSection({ data = [], onChange }) {
               placeholder="Designed and developed high-scale microservices&#10;Led a team of 5 front-end engineers to deliver the product v2&#10;Optimized website performance, increasing conversion by 20%"
               rows="5"
             />
+            <p className="section-form__input-help" style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #666)', marginTop: '4px' }}>
+              Each line supports markdown links (e.g. <code>[Deliverable](https://example.com)</code>) and plain URLs.
+            </p>
           </div>
 
           <div className="section-form__card-actions">
