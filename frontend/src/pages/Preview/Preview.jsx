@@ -45,8 +45,11 @@ function Preview() {
             value={template}
             onChange={(e) => setTemplate(e.target.value)}
           >
-            <option value="modern">Modern Template</option>
-            <option value="classic">Classic Template</option>
+            <option value="modern">Modern Minimalist</option>
+            <option value="classic">Classic Professional</option>
+            <option value="executive">Elegant Executive</option>
+            <option value="tech">Sleek Tech</option>
+            <option value="creative">Creative Stylish</option>
           </select>
           <button className="preview-page__download-btn" onClick={handleDownload}>
             Download PDF

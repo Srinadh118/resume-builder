@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-2xl;
+  background-color: $bg-page;
 
   &__header {
     display: flex;
@@ -15,31 +16,85 @@
     align-items: center;
     flex-wrap: wrap;
     gap: $spacing-md;
+    border-bottom: 1px solid $border-light;
+    padding-bottom: $spacing-lg;
   }
 
   &__title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     color: $text-primary;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    margin-top: 4px;
+    margin-bottom: 0;
   }
 
   &__new-btn {
-    @include capsule-button($accent, $white, $border-radius-md);
+    @include capsule-button($accent, $bg-page, $border-radius-md);
     font-size: 0.875rem;
     padding: 10px 20px;
+    font-weight: 600;
+    border: 1px solid $border-light;
+    
+    [data-theme="dark"] & {
+      color: $black;
+    }
   }
 
   &__loading,
   &__error {
     text-align: center;
     padding: $spacing-3xl 0;
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-family: $font-mono;
     color: $text-secondary;
   }
 
   &__error {
     color: #ee0000;
+  }
+
+  &__stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: $spacing-md;
+    width: 100%;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    margin-top: $spacing-sm;
+
+    &-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: $text-primary;
+      margin: 0;
+    }
+
+    &-subtitle {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      margin-top: -8px;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-lg;
+    width: 100%;
   }
 
   &__empty {
@@ -62,7 +117,7 @@
 
     &-title {
       font-size: 1.25rem;
-      font-weight: 500;
+      font-weight: 600;
       color: $text-primary;
       margin-bottom: $spacing-xs;
     }
@@ -73,12 +128,39 @@
       margin-bottom: $spacing-xl;
     }
   }
+}
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: $spacing-lg;
-    width: 100%;
+.stat-card {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-lg;
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: $box-shadow;
+
+  &__label {
+    font-size: 0.75rem;
+    font-family: $font-mono;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__val {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-primary;
+    font-family: $font-mono;
+
+    &--high {
+      color: #0070f3;
+    }
+
+    &--low {
+      color: #ee0000;
+    }
   }
 }
 
@@ -94,9 +176,9 @@
   transition: all $transition-fast;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: $box-shadow-hover;
-    border-color: rgba($accent, 0.2);
+    border-color: $border-medium;
   }
 
   &__header {
@@ -108,16 +190,18 @@
 
   &__title {
     font-size: 1.125rem;
-    font-weight: 500;
+    font-weight: 600;
     color: $text-primary;
     line-height: 1.3;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    letter-spacing: -0.02em;
   }
 
   &__date {
     font-size: 0.75rem;
+    font-family: $font-mono;
     color: $text-tertiary;
     white-space: nowrap;
     padding-top: 2px;
@@ -138,6 +222,12 @@
     white-space: nowrap;
   }
 
+  &__desc {
+    font-size: 0.8125rem;
+    color: $text-tertiary;
+    line-height: 1.4;
+  }
+
   &__score {
     margin-top: $spacing-xs;
   }
@@ -153,9 +243,9 @@
   &__btn {
     font-family: $font-primary;
     font-size: 0.8125rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: $border-radius-sm;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: $border-radius-md;
     cursor: pointer;
     transition: all $transition-fast;
     flex: 1;
@@ -164,7 +254,12 @@
 
     &--edit {
       background-color: $accent;
-      color: $white;
+      color: $bg-page;
+      border: 1px solid $accent;
+
+      [data-theme="dark"] & {
+        color: $black;
+      }
 
       &:hover {
         opacity: 0.9;
@@ -174,7 +269,7 @@
     &--preview {
       background-color: $bg-element;
       color: $text-primary;
-      border: 1px solid $border-medium;
+      border: 1px solid $border-light;
 
       &:hover {
         background-color: $border-light;
@@ -191,5 +286,34 @@
         border-color: #ee0000;
       }
     }
+  }
+
+  &--demo {
+    border-style: dashed;
+    background-color: rgba($bg-element, 0.5);
+
+    &:hover {
+      background-color: $bg-surface;
+    }
+  }
+}
+
+.demo-badge {
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: $border-radius-sm;
+
+  &--high {
+    background-color: rgba(0, 112, 243, 0.1);
+    color: #0070f3;
+    border: 1px solid rgba(0, 112, 243, 0.2);
+  }
+
+  &--low {
+    background-color: rgba(238, 0, 0, 0.1);
+    color: #ee0000;
+    border: 1px solid rgba(238, 0, 0, 0.2);
   }
 }

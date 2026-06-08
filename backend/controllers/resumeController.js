@@ -67,8 +67,14 @@ exports.updateResume = async (req, res) => {
     if (title !== undefined) resume.title = title;
     if (generalInfo) resume.generalInfo = { ...resume.generalInfo, ...generalInfo };
     if (contactInfo) resume.contactInfo = { ...resume.contactInfo, ...contactInfo };
-    if (education) resume.education = education;
-    if (experience) resume.experience = experience;
+    if (education) {
+      resume.education = education;
+      resume.markModified('education');
+    }
+    if (experience) {
+      resume.experience = experience;
+      resume.markModified('experience');
+    }
     if (settings) resume.settings = { ...resume.settings, ...settings };
     if (skills) resume.skills = skills;
 

@@ -42,7 +42,6 @@ function ExperienceSection({ data = [], onChange }) {
   }
 
   const handleDelete = (index) => {
-    if (!confirm('Are you sure you want to delete this experience item?')) return
     const updated = data.filter((_, i) => i !== index)
     onChange(updated)
     if (editingIndex === index) {

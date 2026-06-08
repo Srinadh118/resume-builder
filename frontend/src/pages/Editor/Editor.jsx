@@ -35,10 +35,14 @@ function Editor() {
     setSaving(true)
     try {
       if (id) {
-        await updateResume(id, resumeData)
+        const updated = await updateResume(id, resumeData)
+        if (updated) setResumeData(updated)
       } else {
         const newResume = await createResume(resumeData)
-        navigate(`/editor/${newResume._id}`)
+        if (newResume) {
+          setResumeData(newResume)
+          navigate(`/editor/${newResume._id}`)
+        }
       }
     } catch (err) {
       console.error('Save failed', err)
@@ -77,7 +81,11 @@ function Editor() {
           <button className="editor__save-btn" onClick={handleSave} disabled={saving}>
             {saving ? 'Saving...' : 'Save Resume'}
           </button>
-          <button className="editor__preview-btn" onClick={() => navigate(`/preview/${id}`)}>
+          <button 
+            className="editor__preview-btn" 
+            onClick={() => id ? navigate(`/preview/${id}`) : alert('Please save the resume first before previewing')}
+            disabled={!id}
+          >
             Preview
           </button>
         </div>

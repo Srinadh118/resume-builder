@@ -3,6 +3,12 @@ import api from '../api/axios'
 
 export function useResumes() {
   const [resumes, setResumes] = useState([])
+  const [dashboardData, setDashboardData] = useState({
+    resumes: [],
+    highestScore: null,
+    lowestScore: null,
+    dummies: []
+  })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -73,11 +79,27 @@ export function useResumes() {
     }
   }, [])
 
+  const fetchDashboardData = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await api.get('/api/resumes/dashboard')
+      setDashboardData(res.data)
+      setResumes(res.data.resumes)
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to fetch dashboard data')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
   return {
     resumes,
+    dashboardData,
     loading,
     error,
     fetchResumes,
+    fetchDashboardData,
     createResume,
     updateResume,
     deleteResume,

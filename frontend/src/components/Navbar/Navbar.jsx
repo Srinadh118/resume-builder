@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useTheme } from '../../context/ThemeContext'
 
 function Navbar() {
   const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
@@ -36,11 +38,17 @@ function Navbar() {
             <Link to="/settings" className={isActive('/settings')} onClick={() => setMenuOpen(false)}>Settings</Link>
             <span className="navbar__user">{user.firstName}</span>
             <button onClick={handleLogout} className="navbar__logout">Logout</button>
+            <button onClick={toggleTheme} className="navbar__theme-toggle" aria-label="Toggle Theme">
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
           </>
         ) : (
           <>
             <Link to="/login" className={isActive('/login')} onClick={() => setMenuOpen(false)}>Log In</Link>
             <Link to="/register" className="navbar__link navbar__link--cta" onClick={() => setMenuOpen(false)}>Get Started</Link>
+            <button onClick={toggleTheme} className="navbar__theme-toggle" aria-label="Toggle Theme">
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
           </>
         )}
       </div>

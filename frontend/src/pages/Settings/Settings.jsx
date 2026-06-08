@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
+import { useTheme } from '../../context/ThemeContext'
 
 function Settings() {
   const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -84,6 +86,22 @@ function Settings() {
               Update Password
             </button>
           </form>
+        </div>
+
+        <div className="settings__section">
+          <h2 className="settings__section-title">Preferences</h2>
+          <div className="settings__info">
+            <div className="settings__info-item">
+              <span className="settings__info-label">Active Theme:</span>
+              <button 
+                type="button" 
+                onClick={toggleTheme} 
+                className="settings__theme-toggle-btn"
+              >
+                Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="settings__section">

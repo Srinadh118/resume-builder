@@ -44,7 +44,7 @@
 // ----------------------------------
 // Capsule Button Mixin
 // ----------------------------------
-@mixin capsule-button($bg: $accent, $color: $white, $radius: 9999px) {
+@mixin capsule-button($bg: $accent, $color: $bg-page, $radius: 9999px) {
   display: inline-flex;
   align-items: center;
   justify-content: center;

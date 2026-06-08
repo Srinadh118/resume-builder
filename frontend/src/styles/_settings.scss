@@ -114,6 +114,17 @@
     }
   }
 
+  &__theme-toggle-btn {
+    @include capsule-button($bg-element, $text-primary, $border-radius-md);
+    border: 1px solid $border-medium;
+    padding: 8px 16px;
+    font-size: 0.8125rem;
+
+    &:hover {
+      background-color: $border-light;
+    }
+  }
+
   &__logout-btn {
     @include capsule-button(transparent, #ee0000, $border-radius-md);
     border: 1px solid rgba(238, 0, 0, 0.2);

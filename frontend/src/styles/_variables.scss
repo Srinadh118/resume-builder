@@ -11,70 +11,73 @@
 // ============================================
 // Typography
 // ============================================
-$font-primary: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-$font-mono: "Geist Mono", "Fira Code", "SF Mono", "Cascadia Code", monospace;
+$font-primary: "Roboto Mono", "Courier New", Courier, monospace, sans-serif;
+$font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 $font-serif: "Georgia", "Times New Roman", serif;
+$font-resume-roboto: "Roboto", sans-serif;
+$font-resume-opensans: "Open Sans", sans-serif;
+$font-resume-inter: "Inter", sans-serif;
 
 // ============================================
 // Colors -- Neutral Scale
 // ============================================
 $white: #ffffff;
-$gray-100: #f9f9f9;
-$gray-200: #f2f2f2;
+$gray-100: #fafafa;
+$gray-200: #f5f5f5;
 $gray-300: #eaeaea;
-$gray-400: #c0c5cc;
-$gray-500: #8a8f98;
-$gray-600: #666666;
-$gray-700: #444444;
-$gray-800: #222222;
-$gray-900: #111111;
-$gray-950: #070708;
+$gray-400: #d5d5d5;
+$gray-500: #a1a1a1;
+$gray-600: #888888;
+$gray-700: #4d4d4d;
+$gray-800: #333333;
+$gray-900: #171717;
+$gray-950: #0a0a0a;
 $black: #000000;
 
 // ============================================
-// Colors -- Accent (Purple)
+// Colors -- Accent (Vercel-inspired)
 // ============================================
-$purple: #7a3bdb;
-$purple-light: rgba(122, 59, 219, 0.3);
-$purple-muted: #b88df5;
+$purple: #0070f3; // Brand Link Blue
+$purple-light: rgba(0, 112, 243, 0.15);
+$purple-muted: #3b82f6;
 
 // ============================================
 // Dynamic Theme Maps
 // ============================================
 $theme-light: (
-  bg-page: $gray-200,
-  bg-element: $gray-100,
+  bg-page: $gray-100,
+  bg-element: $gray-200,
   bg-surface: $white,
-  text-primary: #141414,
+  text-primary: $gray-900,
   text-secondary: $gray-700,
-  text-tertiary: $gray-500,
+  text-tertiary: $gray-600,
   border-light: $gray-300,
-  border-medium: $gray-400,
-  accent: $purple,
-  accent-light: $purple-light,
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05),
-  box-shadow-hover: 0 6px 30px rgba(0, 0, 0, 0.12),
-  box-shadow-blue: 0 2px 14px rgba(122, 59, 219, 0.15),
+  border-medium: $gray-500,
+  accent: $gray-900,
+  accent-light: rgba(23, 23, 23, 0.08),
+  box-shadow: (0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04)),
+  box-shadow-hover: (0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 16px -4px rgba(0, 0, 0, 0.08)),
+  box-shadow-blue: (0px 2px 14px rgba(0, 112, 243, 0.1)),
   link-color: $purple,
-  code-bg: $gray-300,
+  code-bg: $gray-200,
 );
 
 $theme-dark: (
-  bg-page: #0a0a0a,
-  bg-element: #111111,
-  bg-surface: $gray-800,
-  text-primary: #e5e5e5,
-  text-secondary: #a0a0a0,
+  bg-page: $black,
+  bg-element: $gray-950,
+  bg-surface: $gray-900,
+  text-primary: $gray-100,
+  text-secondary: $gray-600,
   text-tertiary: $gray-500,
   border-light: $gray-800,
   border-medium: $gray-700,
-  accent: $purple,
-  accent-light: $purple-light,
-  box-shadow: 0 0 1px $gray-950,
-  box-shadow-hover: 0 0 1px $gray-950,
-  box-shadow-blue: 0 0 1px $gray-950,
+  accent: $white,
+  accent-light: rgba(255, 255, 255, 0.1),
+  box-shadow: (0px 1px 1px rgba(0, 0, 0, 0.3)),
+  box-shadow-hover: (0px 2px 8px rgba(0, 0, 0, 0.4)),
+  box-shadow-blue: (0px 2px 14px rgba(59, 130, 246, 0.15)),
   link-color: $purple-muted,
-  code-bg: $gray-800,
+  code-bg: $gray-900,
 );
 
 $theme-stealth: (
