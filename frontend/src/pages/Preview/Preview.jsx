@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useResumes } from '../../hooks/useResumes'
+import { useCustomTemplates } from '../../hooks/useCustomTemplates'
 import ResumePreview from '../../components/ResumePreview/ResumePreview'
 
 function Preview() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { getResume } = useResumes()
+  const { customTemplates, fetchCustomTemplates } = useCustomTemplates()
   const [resume, setResume] = useState(null)
   const [template, setTemplate] = useState('modern')
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchCustomTemplates().catch(err => console.error('Failed to load custom templates in preview page', err))
+  }, [fetchCustomTemplates])
 
   useEffect(() => {
     if (id) {
@@ -45,11 +51,22 @@ function Preview() {
             value={template}
             onChange={(e) => setTemplate(e.target.value)}
           >
-            <option value="modern">Modern Minimalist</option>
-            <option value="classic">Classic Professional</option>
-            <option value="executive">Elegant Executive</option>
-            <option value="tech">Sleek Tech</option>
-            <option value="creative">Creative Stylish</option>
+            <optgroup label="Standard Templates">
+              <option value="modern">Modern Minimalist</option>
+              <option value="classic">Classic Professional</option>
+              <option value="executive">Elegant Executive</option>
+              <option value="tech">Sleek Tech</option>
+              <option value="creative">Creative Stylish</option>
+            </optgroup>
+            {customTemplates.length > 0 && (
+              <optgroup label="My Custom Templates">
+                {customTemplates.map(t => (
+                  <option key={t._id} value={t._id}>
+                    {t.name}
+                  </option>
+                ))}
+              </optgroup>
+            )}
           </select>
           <button className="preview-page__download-btn" onClick={handleDownload}>
             Download PDF

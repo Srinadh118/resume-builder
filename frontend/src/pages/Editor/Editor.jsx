@@ -110,6 +110,42 @@ function Editor() {
     setSidebarCollapsed(nextPreviewState)
   }
 
+  const handleMouseDown = (e) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  useEffect(() => {
+    if (!isDragging) return
+
+    const handleMouseMove = (e) => {
+      const workspace = document.querySelector('.editor__workspace')
+      if (!workspace) return
+      
+      const rect = workspace.getBoundingClientRect()
+      const workspaceWidth = rect.width
+      const previewPx = rect.right - e.clientX
+      let newPercentage = (previewPx / workspaceWidth) * 100
+      
+      if (newPercentage < 25) newPercentage = 25
+      if (newPercentage > 75) newPercentage = 75
+      
+      setPreviewWidth(newPercentage)
+    }
+
+    const handleMouseUp = () => {
+      setIsDragging(false)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', handleMouseUp)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isDragging])
+
   const sections = [
     { key: 'generalInfo', label: 'General Info', Component: GeneralInfoSection },
     { key: 'contactInfo', label: 'Contact', Component: ContactInfoSection },
@@ -199,7 +235,13 @@ function Editor() {
         </div>
 
         <div className="editor__workspace">
-          <div className="editor__content">
+          <div 
+            className="editor__content"
+            style={{ 
+              width: showPreview ? `${100 - previewWidth}%` : '100%',
+              flexGrow: showPreview ? 0 : 1 
+            }}
+          >
             {sections.map(section => (
               section.key === activeSection && (
                 <section.Component
@@ -212,9 +254,21 @@ function Editor() {
           </div>
 
           {showPreview && (
-            <div className="editor__preview-pane">
-              <ResumePreview resume={resumeData} template={resumeData.settings?.theme || 'modern'} />
-            </div>
+            <>
+              <div 
+                className="editor__resize-handle"
+                onMouseDown={handleMouseDown}
+              />
+              <div 
+                className="editor__preview-pane"
+                style={{ 
+                  width: `${previewWidth}%`,
+                  flexGrow: 0 
+                }}
+              >
+                <ResumePreview resume={resumeData} template={resumeData.settings?.theme || 'modern'} />
+              </div>
+            </>
           )}
         </div>
       </div>
