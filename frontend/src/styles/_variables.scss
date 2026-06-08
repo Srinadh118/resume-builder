@@ -1,0 +1,150 @@
+@use "sass:color";
+
+// ============================================
+// DESIGN SYSTEM - Variables
+// Based on Vercel-inspired design language
+// ============================================
+
+// Google Fonts Import (moved to base for @import or use <link> in html)
+// Instead we rely on system fonts with fallbacks as per DESIGN.md
+
+// ============================================
+// Typography
+// ============================================
+$font-primary: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-mono: "Geist Mono", "Fira Code", "SF Mono", "Cascadia Code", monospace;
+$font-serif: "Georgia", "Times New Roman", serif;
+
+// ============================================
+// Colors -- Neutral Scale
+// ============================================
+$white: #ffffff;
+$gray-100: #f9f9f9;
+$gray-200: #f2f2f2;
+$gray-300: #eaeaea;
+$gray-400: #c0c5cc;
+$gray-500: #8a8f98;
+$gray-600: #666666;
+$gray-700: #444444;
+$gray-800: #222222;
+$gray-900: #111111;
+$gray-950: #070708;
+$black: #000000;
+
+// ============================================
+// Colors -- Accent (Purple)
+// ============================================
+$purple: #7a3bdb;
+$purple-light: rgba(122, 59, 219, 0.3);
+$purple-muted: #b88df5;
+
+// ============================================
+// Dynamic Theme Maps
+// ============================================
+$theme-light: (
+  bg-page: $gray-200,
+  bg-element: $gray-100,
+  bg-surface: $white,
+  text-primary: #141414,
+  text-secondary: $gray-700,
+  text-tertiary: $gray-500,
+  border-light: $gray-300,
+  border-medium: $gray-400,
+  accent: $purple,
+  accent-light: $purple-light,
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05),
+  box-shadow-hover: 0 6px 30px rgba(0, 0, 0, 0.12),
+  box-shadow-blue: 0 2px 14px rgba(122, 59, 219, 0.15),
+  link-color: $purple,
+  code-bg: $gray-300,
+);
+
+$theme-dark: (
+  bg-page: #0a0a0a,
+  bg-element: #111111,
+  bg-surface: $gray-800,
+  text-primary: #e5e5e5,
+  text-secondary: #a0a0a0,
+  text-tertiary: $gray-500,
+  border-light: $gray-800,
+  border-medium: $gray-700,
+  accent: $purple,
+  accent-light: $purple-light,
+  box-shadow: 0 0 1px $gray-950,
+  box-shadow-hover: 0 0 1px $gray-950,
+  box-shadow-blue: 0 0 1px $gray-950,
+  link-color: $purple-muted,
+  code-bg: $gray-800,
+);
+
+$theme-stealth: (
+  bg-page: #020405,
+  bg-element: #04070a,
+  bg-surface: #050a0f,
+  text-primary: #eff3f8,
+  text-secondary: #6c8cad,
+  text-tertiary: #3a5570,
+  border-light: #0a1520,
+  border-medium: #0f2130,
+  accent: $purple,
+  accent-light: $purple-light,
+  box-shadow: 0 0 1px #030f1b,
+  box-shadow-hover: 0 0 1px #030f1b,
+  box-shadow-blue: 0 0 1px #030f1b,
+  link-color: $purple-muted,
+  code-bg: #040508,
+);
+
+// ============================================
+// Active Theme Variable
+// ============================================
+$bg-page: var(--bg-page);
+$bg-element: var(--bg-element);
+$bg-surface: var(--bg-surface);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-tertiary: var(--text-tertiary);
+$border-light: var(--border-light);
+$border-medium: var(--border-medium);
+$accent: var(--accent);
+$accent-light: var(--accent-light);
+$box-shadow: var(--box-shadow);
+$box-shadow-hover: var(--box-shadow-hover);
+$box-shadow-blue: var(--box-shadow-blue);
+$link-color: var(--link-color);
+$code-bg: var(--code-bg);
+
+// ============================================
+// Sizing & Spacing
+// ============================================
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 3rem;     // 48px
+$spacing-3xl: 4rem;     // 64px
+$spacing-4xl: 6rem;     // 96px
+
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+
+// ============================================
+// Transitions
+// ============================================
+$transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$transition-default: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$transition-slow: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+// ============================================
+// Z-Index Layering
+// ============================================
+$z-base: 0;
+$z-dropdown: 100;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal: 1040;
+$z-popover: 1050;
+$z-tooltip: 1060;

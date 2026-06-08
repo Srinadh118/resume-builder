@@ -1,0 +1,244 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+// ============================================
+// DESIGN SYSTEM - Base Styles
+// ============================================
+
+// ----------------------------------
+// CSS Custom Properties (Theme)
+// ----------------------------------
+:root {
+  @include theme($theme-light);
+  --font-primary: #{$font-primary};
+  --font-mono: #{$font-mono};
+  --font-serif: #{$font-serif};
+}
+
+[data-theme="dark"] {
+  @include theme($theme-dark);
+}
+
+[data-theme="stealth"] {
+  @include theme($theme-stealth);
+}
+
+// ----------------------------------
+// Reset & Box-sizing
+// ----------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.525;
+  color: $text-primary;
+  background-color: $bg-page;
+  min-height: 100vh;
+  transition: background-color $transition-default, color $transition-default;
+  overflow-x: hidden;
+}
+
+// ----------------------------------
+// Links
+// ----------------------------------
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: color $transition-fast, opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+}
+
+// ----------------------------------
+// Headings & Text
+// ----------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary;
+  font-weight: 500;
+  line-height: 1.45;
+  color: $text-primary;
+}
+
+h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+p {
+  font-size: 0.8125rem;
+  line-height: 1.525;
+  color: $text-secondary;
+}
+
+// ----------------------------------
+// Utility Classes
+// ----------------------------------
+.page {
+  padding-top: 4rem;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+
+  @include respond-to(sm) {
+    padding: 0 $spacing-lg;
+  }
+
+  @include respond-to(md) {
+    padding: 0 $spacing-xl;
+  }
+}
+
+.section {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.glass {
+  @include glass-effect();
+}
+
+.floating-glow {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: inherit;
+    background: radial-gradient(
+      600px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(122, 59, 219, 0.15),
+      transparent 40%
+    );
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// ----------------------------------
+// Animations
+// ----------------------------------
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blurFade {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// ----------------------------------
+// Scrollbar
+// ----------------------------------
+body {
+  @include scrollbar-styled();
+}
+
+// ----------------------------------
+// Selection
+// ----------------------------------
+::selection {
+  background-color: rgba(122, 59, 219, 0.2);
+  color: $text-primary;
+}
+
+// ----------------------------------
+// Reduced Motion
+// ----------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

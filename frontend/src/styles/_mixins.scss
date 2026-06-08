@@ -1,0 +1,267 @@
+@use "sass:map";
+@use "variables" as *;
+
+// ============================================
+// DESIGN SYSTEM - Mixins & Utilities
+// ============================================
+
+// ----------------------------------
+// Theme Mixin
+// ----------------------------------
+@mixin theme($theme-map) {
+  --bg-page: #{map.get($theme-map, bg-page)};
+  --bg-element: #{map.get($theme-map, bg-element)};
+  --bg-surface: #{map.get($theme-map, bg-surface)};
+  --text-primary: #{map.get($theme-map, text-primary)};
+  --text-secondary: #{map.get($theme-map, text-secondary)};
+  --text-tertiary: #{map.get($theme-map, text-tertiary)};
+  --border-light: #{map.get($theme-map, border-light)};
+  --border-medium: #{map.get($theme-map, border-medium)};
+  --accent: #{map.get($theme-map, accent)};
+  --accent-light: #{map.get($theme-map, accent-light)};
+  --box-shadow: #{map.get($theme-map, box-shadow)};
+  --box-shadow-hover: #{map.get($theme-map, box-shadow-hover)};
+  --box-shadow-blue: #{map.get($theme-map, box-shadow-blue)};
+  --link-color: #{map.get($theme-map, link-color)};
+  --code-bg: #{map.get($theme-map, code-bg)};
+}
+
+// ----------------------------------
+// Vercel Shadow Utilities
+// ----------------------------------
+@mixin shadow-soft() {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+@mixin shadow-hover() {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+}
+
+@mixin shadow-artifact() {
+  box-shadow: 0 2px 14px rgba(122, 59, 219, 0.15);
+}
+
+// ----------------------------------
+// Capsule Button Mixin
+// ----------------------------------
+@mixin capsule-button($bg: $accent, $color: $white, $radius: 9999px) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  font-family: $font-primary;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: background-color $transition-fast, box-shadow $transition-fast, transform $transition-fast;
+
+  &:hover {
+    @if $bg == transparent {
+      background-color: rgba(122, 59, 219, 0.1);
+    }
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// ----------------------------------
+// Input Mixin
+// ----------------------------------
+@mixin input-style() {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  font-family: $font-primary;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: $bg-surface;
+  border: 1px solid $border-medium;
+  border-radius: $border-radius-lg;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    border-color: $text-tertiary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: $bg-element;
+  }
+}
+
+// ----------------------------------
+// Card Mixin
+// ----------------------------------
+@mixin card($padding: $spacing-lg) {
+  background-color: $bg-surface;
+  border: 1px solid rgba(122, 59, 219, 0.06);
+  border-radius: 0.75rem;
+  padding: $padding;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  transition: box-shadow $transition-default, border-color $transition-default;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(122, 59, 219, 0.15);
+    transform: translateY(-4px);
+  }
+}
+
+// ----------------------------------
+// Animations
+// ----------------------------------
+@mixin animate-fade($duration: 0.3s) {
+  animation: fadeIn $duration ease-out;
+}
+
+@mixin animate-slide($duration: 0.5s, $direction: up) {
+  @if $direction == up {
+    animation: slideUp $duration ease-out;
+  } @else if $direction == right {
+    animation: slideRight $duration ease-out;
+  } @else if $direction == left {
+    animation: slideLeft $duration ease-out;
+  }
+}
+
+@mixin animate-blur($duration: 0.8s) {
+  animation: blurFade $duration ease-out;
+}
+
+// ----------------------------------
+// Hero Text Utilities
+// ----------------------------------
+@mixin hero-size($multiplier: 1) {
+  font-size: clamp(2.5rem * $multiplier, 5vw, 4rem * $multiplier);
+}
+
+@mixin hero-gradient($is-active: true) {
+  @if $is-active {
+    background: linear-gradient(135deg, var(--text-primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+// ----------------------------------
+// Decorative Slider
+// ----------------------------------
+@mixin decorative-slider($clr: $purple) {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    margin-top: $spacing-md;
+    background: linear-gradient(90deg, transparent, $clr, transparent);
+    border-radius: 2px;
+  }
+}
+
+// ----------------------------------
+// Glass Effect
+// ----------------------------------
+@mixin glass-effect() {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  [data-theme="light"] & {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+// ----------------------------------
+// Breakpoints
+// ----------------------------------
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 576px) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: 1280px) { @content; }
+  }
+}
+
+// ----------------------------------
+// Scrollbar Styling
+// ----------------------------------
+@mixin scrollbar-styled() {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border-medium;
+    border-radius: 4px;
+
+    &:hover {
+      background: $text-tertiary;
+    }
+  }
+}
+
+// ----------------------------------
+// Focus Ring
+// ----------------------------------
+@mixin focus-ring($color: $accent) {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+// ----------------------------------
+// Skeleton Loading
+// ----------------------------------
+@mixin skeleton-loading() {
+  background: linear-gradient(
+    90deg,
+    $bg-element 25%,
+    $bg-surface 50%,
+    $bg-element 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite linear;
+  border-radius: $border-radius-md;
+}
