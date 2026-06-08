@@ -119,7 +119,7 @@
   &__save-btn {
     font-family: $font-primary;
     background-color: $accent;
-    color: $bg-page;
+    color: $text-accent;
     border: none;
     border-radius: $border-radius-md;
     padding: $spacing-sm $spacing-lg;
@@ -287,12 +287,28 @@
     flex-direction: column;
     gap: $spacing-lg;
     flex-shrink: 0;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &--collapsed {
+      width: 0;
+      padding: 0;
+      opacity: 0;
+      border-right: none;
+      overflow: hidden;
+    }
 
     @media (max-width: 768px) {
       width: 100%;
       border-right: none;
       border-bottom: 1px solid $border-light;
       padding: $spacing-md;
+
+      &--collapsed {
+        height: 0;
+        padding: 0;
+        opacity: 0;
+        border-bottom: none;
+      }
     }
   }
 
@@ -363,9 +379,13 @@
   }
 
   &__save-btn {
-    @include capsule-button($accent, $bg-page, $border-radius-md);
+    @include capsule-button($accent, $text-accent, $border-radius-md);
     height: 40px;
     font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
     
     &:disabled {
       background-color: $border-medium;
@@ -378,9 +398,133 @@
     height: 40px;
     font-size: 0.875rem;
     border: 1px solid $border-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
 
     &:hover {
       background-color: $border-light;
+    }
+  }
+
+  &__main-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: auto;
+      overflow: visible;
+    }
+  }
+
+  &__toolbar {
+    height: 56px;
+    background-color: $bg-surface;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $spacing-lg;
+    flex-shrink: 0;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+    }
+
+    &-right {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+    }
+
+    &-toggle-btn {
+      background: transparent;
+      border: 1px solid $border-light;
+      border-radius: $border-radius-md;
+      color: $text-primary;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover {
+        background-color: $bg-element;
+        border-color: $border-medium;
+      }
+    }
+
+    &-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: $text-primary;
+      letter-spacing: -0.01em;
+    }
+
+    &-mode-btn {
+      font-family: $font-primary;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      background-color: transparent;
+      border: 1px solid $border-light;
+      color: $text-secondary;
+      padding: 6px 12px;
+      border-radius: $border-radius-md;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all $transition-fast;
+
+      &:hover {
+        background-color: $bg-element;
+        color: $text-primary;
+      }
+
+      &--active {
+        background-color: $accent;
+        color: $text-accent;
+        border-color: $accent;
+
+        &:hover {
+          background-color: $accent;
+          color: $text-accent;
+        }
+      }
+    }
+
+    &-save-btn {
+      @include capsule-button($accent, $text-accent, $border-radius-md);
+      height: 32px;
+      font-size: 0.8125rem;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+
+      &:disabled {
+        background-color: $border-medium;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__workspace {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    height: calc(100% - 56px);
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      height: auto;
+      overflow: visible;
     }
   }
 
@@ -393,6 +537,37 @@
     @media (max-width: 768px) {
       padding: $spacing-md;
       overflow-y: visible;
+    }
+  }
+
+  &__preview-pane {
+    width: 50%;
+    border-left: 1px solid $border-light;
+    background-color: $bg-page;
+    overflow-y: auto;
+    padding: $spacing-xl;
+    box-shadow: inset 5px 0 10px rgba(0, 0, 0, 0.02);
+
+    @media (max-width: 992px) {
+      width: 45%;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid $border-light;
+      height: 600px;
+    }
+
+    .resume-preview {
+      background-color: $white;
+      box-shadow: $box-shadow-hover;
+      border: 1px solid $border-light;
+      border-radius: $border-radius-lg;
+      min-height: 842px; // A4 ratio height approximation
+      padding: 40px;
+      margin: 0 auto;
+      max-width: 800px;
     }
   }
 }

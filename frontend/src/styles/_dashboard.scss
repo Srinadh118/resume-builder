@@ -37,15 +37,11 @@
   }
 
   &__new-btn {
-    @include capsule-button($accent, $bg-page, $border-radius-md);
+    @include capsule-button($accent, $text-accent, $border-radius-md);
     font-size: 0.875rem;
     padding: 10px 20px;
     font-weight: 600;
     border: 1px solid $border-light;
-    
-    [data-theme="dark"] & {
-      color: $black;
-    }
   }
 
   &__loading,
@@ -254,12 +250,8 @@
 
     &--edit {
       background-color: $accent;
-      color: $bg-page;
+      color: $text-accent;
       border: 1px solid $accent;
-
-      [data-theme="dark"] & {
-        color: $black;
-      }
 
       &:hover {
         opacity: 0.9;

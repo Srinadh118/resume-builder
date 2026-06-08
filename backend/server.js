@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/resumes', require('./routes/resumes'));
+app.use('/api/custom-templates', require('./routes/customTemplates'));
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Server is running' });

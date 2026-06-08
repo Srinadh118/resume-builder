@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
+import { useCustomTemplates } from '../../hooks/useCustomTemplates'
+import { Plus, Edit2, Trash2 } from 'lucide-react'
 
 function Settings() {
+  const navigate = useNavigate()
   const { user, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
+  const { customTemplates, fetchCustomTemplates, deleteCustomTemplate } = useCustomTemplates()
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -12,6 +17,20 @@ function Settings() {
   })
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    fetchCustomTemplates().catch(err => console.error('Failed to load templates in settings page', err))
+  }, [fetchCustomTemplates])
+
+  const handleDeleteTemplate = async (id) => {
+    if (window.confirm('Are you sure you want to delete this custom template? Resumes using it will fallback to standard modern template.')) {
+      try {
+        await deleteCustomTemplate(id)
+      } catch (err) {
+        console.error('Failed to delete template', err)
+      }
+    }
+  }
 
   const handlePasswordChange = (e) => {
     setPasswordData(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -45,6 +64,90 @@ function Settings() {
               <span className="settings__info-value">{user?.firstName} {user?.lastName}</span>
             </div>
           </div>
+        </div>
+
+        <div className="settings__section">
+          <h2 className="settings__section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            Custom Resume Templates
+            <button 
+              className="settings__theme-toggle-btn" 
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              onClick={() => navigate('/templates/new')}
+            >
+              <Plus size={14} />
+              Create Template
+            </button>
+          </h2>
+          
+          {customTemplates.length === 0 ? (
+            <p style={{ fontSize: '0.875rem', color: '#666', margin: 0, textAlign: 'center', padding: '16px 0' }}>
+              You haven't created any custom templates yet. Design one to customize layout, colors, spacing, and styling.
+            </p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {customTemplates.map(t => (
+                <div 
+                  key={t._id} 
+                  style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    padding: '12px 16px',
+                    border: '1px solid #eee',
+                    borderRadius: '8px',
+                    backgroundColor: '#fafafa'
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)' }}>{t.name}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#888', marginLeft: '12px', textTransform: 'capitalize' }}>
+                      {t.layout?.layoutType?.replace('-', ' ')}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button 
+                      onClick={() => navigate(`/templates/edit/${t._id}`)}
+                      style={{ 
+                        background: 'transparent', 
+                        border: '1px solid #ddd', 
+                        borderRadius: '4px',
+                        padding: '4px 8px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '0.75rem',
+                        color: 'var(--text-secondary)'
+                      }}
+                      title="Edit Template"
+                    >
+                      <Edit2 size={12} />
+                      Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteTemplate(t._id)}
+                      style={{ 
+                        background: 'transparent', 
+                        border: '1px solid rgba(238, 0, 0, 0.2)', 
+                        borderRadius: '4px',
+                        padding: '4px 8px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '0.75rem',
+                        color: '#ee0000'
+                      }}
+                      title="Delete Template"
+                    >
+                      <Trash2 size={12} />
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="settings__section">

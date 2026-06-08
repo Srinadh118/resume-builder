@@ -8,6 +8,9 @@ import ExperienceSection from '../../sections/ExperienceSection/ExperienceSectio
 import SkillsSection from '../../sections/SkillsSection/SkillsSection'
 import CertificationsSection from '../../sections/CertificationsSection/CertificationsSection'
 import SettingsSection from '../../sections/SettingsSection/SettingsSection'
+import ResumePreview from '../../components/ResumePreview/ResumePreview'
+import { Sidebar, Eye, EyeOff, Save, FileText } from 'lucide-react'
+
 
 function Editor() {
   const { id } = useParams()
@@ -15,6 +18,10 @@ function Editor() {
   const { createResume, updateResume, getResume } = useResumes()
   const [activeSection, setActiveSection] = useState('generalInfo')
   const [saving, setSaving] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [previewWidth, setPreviewWidth] = useState(50)
+  const [isDragging, setIsDragging] = useState(false)
   const [resumeData, setResumeData] = useState({
     generalInfo: {},
     contactInfo: {},
@@ -96,6 +103,13 @@ function Editor() {
     setResumeData(prev => ({ ...prev, [section]: data }))
   }
 
+  const handleTogglePreview = () => {
+    const nextPreviewState = !showPreview
+    setShowPreview(nextPreviewState)
+    // Auto toggle sidebar: collapse if opening preview alongside editing
+    setSidebarCollapsed(nextPreviewState)
+  }
+
   const sections = [
     { key: 'generalInfo', label: 'General Info', Component: GeneralInfoSection },
     { key: 'contactInfo', label: 'Contact', Component: ContactInfoSection },
@@ -107,8 +121,8 @@ function Editor() {
   ]
 
   return (
-    <div className="editor">
-      <div className="editor__sidebar">
+    <div className={`editor ${showPreview ? 'editor--with-preview' : ''}`}>
+      <div className={`editor__sidebar ${sidebarCollapsed ? 'editor__sidebar--collapsed' : ''}`}>
         <h2 className="editor__title">Resume Editor</h2>
         <nav className="editor__nav">
           {sections.map(section => (
@@ -123,6 +137,7 @@ function Editor() {
         </nav>
         <div className="editor__actions">
           <button className="editor__save-btn" onClick={handleSave} disabled={saving}>
+            <Save size={16} />
             {saving ? 'Saving...' : 'Save Resume'}
           </button>
           <button 
@@ -130,20 +145,78 @@ function Editor() {
             onClick={() => id ? navigate(`/preview/${id}`) : alert('Please save the resume first before previewing')}
             disabled={!id}
           >
-            Preview
+            <FileText size={16} />
+            Full Preview
           </button>
         </div>
       </div>
-      <div className="editor__content">
-        {sections.map(section => (
-          section.key === activeSection && (
-            <section.Component
-              key={section.key}
-              data={resumeData[section.key]}
-              onChange={(data) => updateSection(section.key, data)}
-            />
-          )
-        ))}
+
+      <div className="editor__main-container">
+        <div className="editor__toolbar">
+          <div className="editor__toolbar-left">
+            <button 
+              className="editor__toolbar-toggle-btn"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+            >
+              <Sidebar size={20} />
+            </button>
+            <span className="editor__toolbar-title">
+              {resumeData.generalInfo?.firstName ? `${resumeData.generalInfo.firstName}'s Resume` : 'Untitled Resume'}
+            </span>
+          </div>
+
+          <div className="editor__toolbar-right">
+            <button 
+              className={`editor__toolbar-mode-btn ${!showPreview ? 'editor__toolbar-mode-btn--active' : ''}`}
+              onClick={() => {
+                setShowPreview(false)
+                setSidebarCollapsed(false)
+              }}
+            >
+              Form Editor
+            </button>
+            <button 
+              className={`editor__toolbar-mode-btn ${showPreview ? 'editor__toolbar-mode-btn--active' : ''}`}
+              onClick={() => {
+                setShowPreview(true)
+                setSidebarCollapsed(true)
+              }}
+            >
+              <Eye size={16} style={{ marginRight: '6px' }} />
+              Live Preview
+            </button>
+
+            <button 
+              className="editor__toolbar-save-btn" 
+              onClick={handleSave} 
+              disabled={saving}
+            >
+              <Save size={16} style={{ marginRight: '6px' }} />
+              {saving ? 'Saving...' : 'Save'}
+            </button>
+          </div>
+        </div>
+
+        <div className="editor__workspace">
+          <div className="editor__content">
+            {sections.map(section => (
+              section.key === activeSection && (
+                <section.Component
+                  key={section.key}
+                  data={resumeData[section.key]}
+                  onChange={(data) => updateSection(section.key, data)}
+                />
+              )
+            ))}
+          </div>
+
+          {showPreview && (
+            <div className="editor__preview-pane">
+              <ResumePreview resume={resumeData} template={resumeData.settings?.theme || 'modern'} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

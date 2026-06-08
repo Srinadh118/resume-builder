@@ -49,7 +49,7 @@ const certificationSchema = new mongoose.Schema({
 }, { _id: true });
 
 const settingsSchema = new mongoose.Schema({
-  theme: { type: String, default: 'modern', enum: ['professional', 'modern', 'creative', 'minimal', 'classic', 'executive', 'tech'] },
+  theme: { type: String, default: 'modern' },
   fontSize: { type: Number, default: 12, min: 10, max: 16 },
   accentColor: { type: String, default: '#6366f1' },
   showPhoto: { type: Boolean, default: true }

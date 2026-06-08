@@ -55,7 +55,7 @@
   }
 
   &__download-btn {
-    @include capsule-button($accent, $white, $border-radius-md);
+    @include capsule-button($accent, $text-accent, $border-radius-md);
     height: 40px;
     font-size: 0.875rem;
   }
@@ -116,7 +116,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #111111;
+      color: $text-primary;
       border-bottom: 2px solid var(--resume-accent-color, #222222);
       padding-bottom: 4px;
       margin-bottom: $spacing-md;
@@ -136,13 +136,13 @@
     &-title {
       font-size: 1em;
       font-weight: 600;
-      color: #111111;
+      color: $text-primary;
       font-family: var(--font-primary, "Inter", sans-serif);
     }
 
     &-subtitle {
       font-size: 0.875em;
-      color: #444444;
+      color: $text-secondary;
       font-style: italic;
       margin-bottom: $spacing-xs;
     }
@@ -150,25 +150,26 @@
     &-company {
       font-size: 0.875em;
       font-weight: 600;
-      color: #222222;
+      color: $text-primary;
     }
 
     &-date {
       font-size: 0.875em;
-      color: #555555;
+      color: $text-secondary;
       font-family: var(--font-primary, "Inter", sans-serif);
     }
   }
 
   &__text {
     font-size: 0.875em;
-    color: #333333;
+    color: $text-secondary;
     line-height: 1.5;
   }
 
   &__responsibilities {
     margin-top: $spacing-xs;
-    
+    padding-left: $spacing-lg;
+
     li {
       margin-bottom: 4px;
     }
@@ -177,7 +178,7 @@
   // Modern Template 1
   &--modern {
     font-family: var(--font-primary, "Inter", sans-serif);
-    
+
     .resume-template__header {
       text-align: center;
       margin-bottom: $spacing-2xl;
@@ -187,14 +188,14 @@
       font-size: 2.25em;
       font-weight: 700;
       letter-spacing: -0.03em;
-      color: #111111;
+      color: $text-primary;
       margin-bottom: $spacing-xs;
     }
 
     .resume-template__title {
       font-size: 1.125em;
       font-weight: 500;
-      color: var(--resume-accent-color, #555555);
+      color: var(--resume-accent-color, $text-secondary);
       margin-bottom: $spacing-sm;
     }
 
@@ -204,7 +205,7 @@
       flex-wrap: wrap;
       gap: $spacing-md;
       font-size: 0.875em;
-      color: #666666;
+      color: $text-secondary;
 
       span {
         display: inline-flex;
@@ -213,13 +214,13 @@
         &:not(:last-child)::after {
           content: "•";
           margin-left: $spacing-md;
-          color: #cccccc;
+          color: $border-medium;
         }
       }
     }
 
     .resume-template__section-title {
-      border-bottom: 1px solid var(--resume-accent-color, #e1e1e1);
+      border-bottom: 1px solid var(--resume-accent-color, $border-light);
       text-transform: none;
       letter-spacing: normal;
       font-size: 1.25em;
@@ -240,14 +241,13 @@
     .resume-template__sidebar {
       width: 220px;
       flex-shrink: 0;
-      border-right: 1px solid #eeeeee;
+      border-right: 1px solid $border-light;
       padding-right: $spacing-xl;
 
       @media (max-width: 600px) {
         width: 100%;
         border-right: none;
-        padding-right: 0;
-        border-bottom: 1px solid #eeeeee;
+        border-bottom: 1px solid $border-light;
         padding-bottom: $spacing-xl;
       }
     }
@@ -263,14 +263,14 @@
     .resume-template__name {
       font-size: 1.75em;
       font-weight: 700;
-      color: #111111;
+      color: $text-primary;
       line-height: 1.2;
       margin-bottom: $spacing-xs;
     }
 
     .resume-template__title {
       font-size: 1em;
-      color: var(--resume-accent-color, #666666);
+      color: var(--resume-accent-color, $text-secondary);
       font-weight: 500;
     }
 
@@ -279,7 +279,7 @@
       flex-direction: column;
       gap: $spacing-sm;
       font-size: 0.875em;
-      color: #444444;
+      color: $text-secondary;
       word-break: break-all;
     }
   }
@@ -289,6 +289,24 @@
 // Print Styles
 // ============================================
 @media print {
+
+  // Force light theme variables for clean white page print/PDF export
+  :root,
+  [data-theme="dark"],
+  [data-theme="stealth"] {
+    --bg-page: #fafafa !important;
+    --bg-element: #f5f5f5 !important;
+    --bg-surface: #ffffff !important;
+    --text-primary: #171717 !important;
+    --text-secondary: #4d4d4d !important;
+    --text-tertiary: #888888 !important;
+    --text-accent: #f1f1f1 !important;
+    --border-light: #eaeaea !important;
+    --border-medium: #a1a1a1 !important;
+    --accent: #171717 !important;
+    --link-color: #0070f3 !important;
+  }
+
   body {
     background: #ffffff !important;
     color: #000000 !important;

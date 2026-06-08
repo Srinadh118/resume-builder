@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import Editor from './pages/Editor/Editor'
 import Preview from './pages/Preview/Preview'
 import Settings from './pages/Settings/Settings'
+import CustomTemplateBuilder from './pages/CustomTemplateBuilder/CustomTemplateBuilder'
 import { useAuth } from './context/AuthContext'
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         <Route path="editor/:id?" element={<Editor />} />
         <Route path="preview/:id?" element={<Preview />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="templates/new" element={<CustomTemplateBuilder />} />
+        <Route path="templates/edit/:id" element={<CustomTemplateBuilder />} />
       </Route>
     </Routes>
   )

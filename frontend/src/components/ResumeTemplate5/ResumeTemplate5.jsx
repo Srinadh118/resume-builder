@@ -20,7 +20,7 @@ function ResumeTemplate5({ resume }) {
       className="resume-template resume-template--creative" 
       style={{ 
         fontFamily: '"Open Sans", sans-serif', 
-        color: '#334155', 
+        color: 'var(--text-secondary)', 
         display: 'flex', 
         gap: '30px', 
         padding: '10px 0', 
@@ -31,9 +31,9 @@ function ResumeTemplate5({ resume }) {
     >
       
       {/* LEFT COLUMN - Sidebar */}
-      <aside className="resume-template__sidebar" style={{ width: '220px', flexShrink: 0, borderRight: '1px solid #e2e8f0', paddingRight: '20px' }}>
+      <aside className="resume-template__sidebar" style={{ width: '220px', flexShrink: 0, borderRight: '1px solid var(--border-light)', paddingRight: '20px' }}>
         <div style={{ marginBottom: '25px' }}>
-          <h1 className="resume-template__name" style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0f172a', margin: '0 0 4px 0', lineHeight: '1.2' }}>
+          <h1 className="resume-template__name" style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--text-primary)', margin: '0 0 4px 0', lineHeight: '1.2' }}>
             {generalInfo.firstName || ''}<br />{generalInfo.lastName || ''}
           </h1>
           <p className="resume-template__title" style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--resume-accent-color, #0070f3)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 15px 0' }}>
@@ -42,10 +42,10 @@ function ResumeTemplate5({ resume }) {
         </div>
 
         <div style={{ marginBottom: '25px' }}>
-          <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8', margin: '0 0 10px 0', fontWeight: 'bold' }}>
+          <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-tertiary)', margin: '0 0 10px 0', fontWeight: 'bold' }}>
             Contact Info
           </h4>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.8rem', color: '#475569', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {contactInfo.email && (
               <li style={{ wordBreak: 'break-all' }}>
                 <strong>Email:</strong>{' '}
@@ -102,7 +102,7 @@ function ResumeTemplate5({ resume }) {
 
         {skills.length > 0 && (
           <div>
-            <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8', margin: '0 0 10px 0', fontWeight: 'bold' }}>
+            <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-tertiary)', margin: '0 0 10px 0', fontWeight: 'bold' }}>
               Expertise
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -111,11 +111,11 @@ function ResumeTemplate5({ resume }) {
                   key={idx} 
                   style={{ 
                     fontSize: '0.75rem', 
-                    background: '#f1f5f9', 
-                    color: '#334155', 
+                    background: 'var(--bg-element)', 
+                    color: 'var(--text-primary)', 
                     padding: '3px 8px', 
                     borderRadius: '4px', 
-                    border: '1px solid #e2e8f0' 
+                    border: '1px solid var(--border-light)' 
                   }}
                 >
                   {skill}
@@ -130,10 +130,10 @@ function ResumeTemplate5({ resume }) {
       <main className="resume-template__main" style={{ flexGrow: 1 }}>
         {generalInfo.summary && (
           <section className="resume-template__section" style={{ marginBottom: '25px' }}>
-            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '5px', marginBottom: '10px' }}>
+            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)', borderBottom: '2px solid var(--border-light)', paddingBottom: '5px', marginBottom: '10px' }}>
               Professional Summary
             </h2>
-            <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155' }}>
+            <p className="resume-template__text" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
               {renderTextWithLinks(generalInfo.summary)}
             </p>
           </section>
@@ -141,27 +141,27 @@ function ResumeTemplate5({ resume }) {
 
         {experience.length > 0 && (
           <section className="resume-template__section" style={{ marginBottom: '25px' }}>
-            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '5px', marginBottom: '10px' }}>
+            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)', borderBottom: '2px solid var(--border-light)', paddingBottom: '5px', marginBottom: '10px' }}>
               Professional History
             </h2>
             {experience.map((job, index) => (
               <div key={job._id || index} className="resume-template__item" style={{ marginBottom: '18px' }}>
                 <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: '#0f172a', margin: 0 }}>
+                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: 'var(--text-primary)', margin: 0 }}>
                     {job.position}
                   </h3>
-                  <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>
+                  <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: '500' }}>
                     {job.startDate ? formatDate(job.startDate) : ''} – {job.current ? 'Present' : (job.endDate ? formatDate(job.endDate) : '')}
                   </span>
                 </div>
-                <p className="resume-template__item-subtitle" style={{ margin: '1px 0 5px 0', fontSize: '0.8rem', fontWeight: '600', color: '#64748b' }}>
+                <p className="resume-template__item-subtitle" style={{ margin: '1px 0 5px 0', fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)' }}>
                   {job.company}
                 </p>
-                {job.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', margin: '0 0 5px 0' }}>{renderTextWithLinks(job.description)}</p>}
+                {job.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: '0 0 5px 0' }}>{renderTextWithLinks(job.description)}</p>}
                 {job.responsibilities && job.responsibilities.length > 0 && (
                   <ul className="resume-template__responsibilities" style={{ paddingLeft: '18px', margin: 0 }}>
                     {job.responsibilities.map((resp, i) => (
-                      <li key={i} className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', marginBottom: '3px' }}>{renderTextWithLinks(resp)}</li>
+                      <li key={i} className="resume-template__text" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '3px' }}>{renderTextWithLinks(resp)}</li>
                     ))}
                   </ul>
                 )}
@@ -172,21 +172,21 @@ function ResumeTemplate5({ resume }) {
 
         {education.length > 0 && (
           <section className="resume-template__section" style={{ marginBottom: '25px' }}>
-            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '5px', marginBottom: '10px' }}>
+            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)', borderBottom: '2px solid var(--border-light)', paddingBottom: '5px', marginBottom: '10px' }}>
               Education
             </h2>
             {education.map((edu, index) => (
               <div key={edu._id || index} className="resume-template__item" style={{ marginBottom: '12px' }}>
                 <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: '#0f172a', margin: 0 }}>
+                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: 'var(--text-primary)', margin: 0 }}>
                     {edu.degree} {edu.fieldOfStudy ? `in ${edu.fieldOfStudy}` : ''}
                   </h3>
-                  <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>
+                  <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: '500' }}>
                     {edu.startDate ? formatDate(edu.startDate) : ''} – {edu.current ? 'Present' : (edu.endDate ? formatDate(edu.endDate) : '')}
                   </span>
                 </div>
-                <p className="resume-template__item-subtitle" style={{ margin: '1px 0 0 0', fontSize: '0.8rem', color: '#64748b' }}>{edu.school}</p>
-                {edu.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '5px' }}>{renderTextWithLinks(edu.description)}</p>}
+                <p className="resume-template__item-subtitle" style={{ margin: '1px 0 0 0', fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>{edu.school}</p>
+                {edu.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '5px' }}>{renderTextWithLinks(edu.description)}</p>}
               </div>
             ))}
           </section>
@@ -194,23 +194,21 @@ function ResumeTemplate5({ resume }) {
 
         {certifications && certifications.length > 0 && (
           <section className="resume-template__section" style={{ marginBottom: '25px' }}>
-            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '5px', marginBottom: '10px' }}>
+            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)', borderBottom: '2px solid var(--border-light)', paddingBottom: '5px', marginBottom: '10px' }}>
               Certifications & Achievements
             </h2>
             {certifications.map((cert, index) => (
               <div key={cert._id || index} className="resume-template__item" style={{ marginBottom: '12px' }}>
                 <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: '#0f172a', margin: 0 }}>
+                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: 'var(--text-primary)', margin: 0 }}>
                     {cert.name}
                   </h3>
-                  {cert.date && (
-                    <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>
-                      {formatDate(cert.date)}
-                    </span>
-                  )}
+                  <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: '500' }}>
+                    {formatDate(cert.date)}
+                  </span>
                 </div>
-                {cert.issuer && <p className="resume-template__item-subtitle" style={{ margin: '1px 0 5px 0', fontSize: '0.8rem', fontWeight: '600', color: '#64748b' }}>{cert.issuer}</p>}
-                {cert.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '5px' }}>{renderTextWithLinks(cert.description)}</p>}
+                {cert.issuer && <p className="resume-template__item-subtitle" style={{ margin: '1px 0 5px 0', fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)' }}>{cert.issuer}</p>}
+                {cert.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '5px' }}>{renderTextWithLinks(cert.description)}</p>}
               </div>
             ))}
           </section>

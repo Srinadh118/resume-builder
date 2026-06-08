@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
 import { MoonStar, Sun } from "lucide-react"
 
 function Navbar() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, logout, loading: authLoading } = useAuth();
   console.log('Dashboard user:', user);
   console.log('Navbar user:', user);
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const location = useLocation()
 
   const handleLogout = () => {
@@ -19,10 +21,23 @@ function Navbar() {
 
   const isActive = (path) => location.pathname === path ? 'navbar__link navbar__link--active' : 'navbar__link'
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setVisible(false)
+      } else {
+        setVisible(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
 
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${!visible ? 'navbar--hidden' : ''}`}>
       <div className="navbar__brand">
         <Link to="/" className="navbar__logo">ResumeBuilder</Link>
       </div>

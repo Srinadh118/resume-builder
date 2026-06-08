@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useCustomTemplates } from '../../hooks/useCustomTemplates'
 
 const COLOR_PRESETS = [
   { name: 'Classic Black', value: '#171717' },
@@ -11,6 +12,12 @@ const COLOR_PRESETS = [
 ]
 
 function SettingsSection({ data = {}, onChange }) {
+  const { customTemplates, fetchCustomTemplates } = useCustomTemplates()
+
+  useEffect(() => {
+    fetchCustomTemplates().catch(err => console.error('Failed to load custom templates in settings', err))
+  }, [fetchCustomTemplates])
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     onChange({
@@ -41,11 +48,22 @@ function SettingsSection({ data = {}, onChange }) {
           onChange={handleChange}
           className="section-form__input"
         >
-          <option value="modern">Modern Minimalist</option>
-          <option value="classic">Classic Professional</option>
-          <option value="executive">Elegant Executive</option>
-          <option value="tech">Sleek Tech</option>
-          <option value="creative">Creative Stylish</option>
+          <optgroup label="Standard Templates">
+            <option value="modern">Modern Minimalist</option>
+            <option value="classic">Classic Professional</option>
+            <option value="executive">Elegant Executive</option>
+            <option value="tech">Sleek Tech</option>
+            <option value="creative">Creative Stylish</option>
+          </optgroup>
+          {customTemplates.length > 0 && (
+            <optgroup label="My Custom Templates">
+              {customTemplates.map(t => (
+                <option key={t._id} value={t._id}>
+                  {t.name}
+                </option>
+              ))}
+            </optgroup>
+          )}
         </select>
       </div>
 
