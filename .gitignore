@@ -2,6 +2,7 @@
 .claude/
 .gemini/
 
+DESIGN.md
 AGENTS.md
 GEMINI.md
 CLAUDE.md
