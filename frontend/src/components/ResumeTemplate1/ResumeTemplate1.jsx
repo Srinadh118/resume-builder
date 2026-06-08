@@ -13,15 +13,24 @@ const formatDate = (dateString) => {
 }
 
 function ResumeTemplate1({ resume }) {
-  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [] } = resume
+  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [], certifications = [], settings = {} } = resume
 
   return (
-    <div className="resume-template resume-template--modern" style={{ fontFamily: 'Roboto, sans-serif' }}>
+    <div 
+      className="resume-template resume-template--modern" 
+      style={{ 
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: settings.fontSize ? `${settings.fontSize}px` : '12px',
+        '--resume-accent-color': settings.accentColor || '#6366f1'
+      }}
+    >
       <header className="resume-template__header">
         <h1 className="resume-template__name">
           {generalInfo.firstName || ''} {generalInfo.lastName || ''}
         </h1>
-        <p className="resume-template__title">{generalInfo.title || generalInfo.jobTitle || ''}</p>
+        <p className="resume-template__title" style={{ color: 'var(--resume-accent-color, #555555)' }}>
+          {generalInfo.title || generalInfo.jobTitle || ''}
+        </p>
         <div className="resume-template__contact">
           {contactInfo.email && (
             <span>
@@ -114,6 +123,26 @@ function ResumeTemplate1({ resume }) {
               </div>
               <p className="resume-template__item-subtitle">{edu.school}</p>
               {edu.description && <p className="resume-template__text">{renderTextWithLinks(edu.description)}</p>}
+            </div>
+          ))}
+        </section>
+      )}
+
+      {certifications && certifications.length > 0 && (
+        <section className="resume-template__section">
+          <h2 className="resume-template__section-title">Certifications & Achievements</h2>
+          {certifications.map((cert, index) => (
+            <div key={cert._id || index} className="resume-template__item">
+              <div className="resume-template__item-header">
+                <h3 className="resume-template__item-title">{cert.name}</h3>
+                {cert.date && (
+                  <span className="resume-template__item-date">
+                    {formatDate(cert.date)}
+                  </span>
+                )}
+              </div>
+              {cert.issuer && <p className="resume-template__item-subtitle">{cert.issuer}</p>}
+              {cert.description && <p className="resume-template__text">{renderTextWithLinks(cert.description)}</p>}
             </div>
           ))}
         </section>

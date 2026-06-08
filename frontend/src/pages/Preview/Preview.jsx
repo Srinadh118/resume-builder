@@ -16,7 +16,7 @@ function Preview() {
       getResume(id)
         .then(data => {
           setResume(data)
-          setTemplate(data.settings?.template || 'modern')
+          setTemplate(data.settings?.theme || data.settings?.template || 'modern')
           setLoading(false)
         })
         .catch(err => {

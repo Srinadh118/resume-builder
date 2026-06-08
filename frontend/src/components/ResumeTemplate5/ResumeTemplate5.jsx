@@ -13,10 +13,22 @@ const formatDate = (dateString) => {
 }
 
 function ResumeTemplate5({ resume }) {
-  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [] } = resume
+  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [], certifications = [], settings = {} } = resume
 
   return (
-    <div className="resume-template resume-template--creative" style={{ fontFamily: '"Open Sans", sans-serif', color: '#334155', display: 'flex', gap: '30px', padding: '10px 0', lineHeight: '1.6' }}>
+    <div 
+      className="resume-template resume-template--creative" 
+      style={{ 
+        fontFamily: '"Open Sans", sans-serif', 
+        color: '#334155', 
+        display: 'flex', 
+        gap: '30px', 
+        padding: '10px 0', 
+        lineHeight: '1.6',
+        fontSize: settings.fontSize ? `${settings.fontSize}px` : '12px',
+        '--resume-accent-color': settings.accentColor || '#0070f3'
+      }}
+    >
       
       {/* LEFT COLUMN - Sidebar */}
       <aside className="resume-template__sidebar" style={{ width: '220px', flexShrink: 0, borderRight: '1px solid #e2e8f0', paddingRight: '20px' }}>
@@ -24,7 +36,7 @@ function ResumeTemplate5({ resume }) {
           <h1 className="resume-template__name" style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0f172a', margin: '0 0 4px 0', lineHeight: '1.2' }}>
             {generalInfo.firstName || ''}<br />{generalInfo.lastName || ''}
           </h1>
-          <p className="resume-template__title" style={{ fontSize: '0.85rem', fontWeight: '600', color: '#0070f3', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 15px 0' }}>
+          <p className="resume-template__title" style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--resume-accent-color, #0070f3)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 15px 0' }}>
             {generalInfo.title || generalInfo.jobTitle || ''}
           </p>
         </div>
@@ -79,7 +91,9 @@ function ResumeTemplate5({ resume }) {
               <li style={{ wordBreak: 'break-all' }}>
                 <strong>Twitter:</strong>{' '}
                 <a href={formatContactLink('twitter', contactInfo.twitter)} className="resume-link" target="_blank" rel="noopener noreferrer">
-                  @{contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}
+                  {contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '').startsWith('@')
+                    ? contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')
+                    : `@${contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}`}
                 </a>
               </li>
             )}
@@ -173,6 +187,30 @@ function ResumeTemplate5({ resume }) {
                 </div>
                 <p className="resume-template__item-subtitle" style={{ margin: '1px 0 0 0', fontSize: '0.8rem', color: '#64748b' }}>{edu.school}</p>
                 {edu.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '5px' }}>{renderTextWithLinks(edu.description)}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {certifications && certifications.length > 0 && (
+          <section className="resume-template__section" style={{ marginBottom: '25px' }}>
+            <h2 className="resume-template__section-title" style={{ fontSize: '1.1rem', fontWeight: '700', color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '5px', marginBottom: '10px' }}>
+              Certifications & Achievements
+            </h2>
+            {certifications.map((cert, index) => (
+              <div key={cert._id || index} className="resume-template__item" style={{ marginBottom: '12px' }}>
+                <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '700', color: '#0f172a', margin: 0 }}>
+                    {cert.name}
+                  </h3>
+                  {cert.date && (
+                    <span className="resume-template__item-date" style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>
+                      {formatDate(cert.date)}
+                    </span>
+                  )}
+                </div>
+                {cert.issuer && <p className="resume-template__item-subtitle" style={{ margin: '1px 0 5px 0', fontSize: '0.8rem', fontWeight: '600', color: '#64748b' }}>{cert.issuer}</p>}
+                {cert.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '5px' }}>{renderTextWithLinks(cert.description)}</p>}
               </div>
             ))}
           </section>

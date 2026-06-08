@@ -29,7 +29,7 @@ exports.getResumeById = async (req, res) => {
 
 exports.createResume = async (req, res) => {
   try {
-    const { title, generalInfo, contactInfo, education, experience, settings, skills } = req.body;
+    const { title, generalInfo, contactInfo, education, experience, settings, skills, certifications } = req.body;
 
     const resume = new Resume({
       user: req.user.userId,
@@ -39,7 +39,8 @@ exports.createResume = async (req, res) => {
       education: education || [],
       experience: experience || [],
       settings,
-      skills: skills || []
+      skills: skills || [],
+      certifications: certifications || []
     });
 
     resume.atsScore = calculateATSScore(resume.toObject());
@@ -53,7 +54,7 @@ exports.createResume = async (req, res) => {
 
 exports.updateResume = async (req, res) => {
   try {
-    const { title, generalInfo, contactInfo, education, experience, settings, skills } = req.body;
+    const { title, generalInfo, contactInfo, education, experience, settings, skills, certifications } = req.body;
 
     const resume = await Resume.findOne({ 
       _id: req.params.id, 
@@ -77,6 +78,10 @@ exports.updateResume = async (req, res) => {
     }
     if (settings) resume.settings = { ...resume.settings, ...settings };
     if (skills) resume.skills = skills;
+    if (certifications) {
+      resume.certifications = certifications;
+      resume.markModified('certifications');
+    }
 
     resume.atsScore = calculateATSScore(resume.toObject());
     await resume.save();

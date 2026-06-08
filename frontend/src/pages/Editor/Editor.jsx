@@ -5,6 +5,9 @@ import GeneralInfoSection from '../../sections/GeneralInfoSection/GeneralInfoSec
 import ContactInfoSection from '../../sections/ContactInfoSection/ContactInfoSection'
 import EducationSection from '../../sections/EducationSection/EducationSection'
 import ExperienceSection from '../../sections/ExperienceSection/ExperienceSection'
+import SkillsSection from '../../sections/SkillsSection/SkillsSection'
+import CertificationsSection from '../../sections/CertificationsSection/CertificationsSection'
+import SettingsSection from '../../sections/SettingsSection/SettingsSection'
 
 function Editor() {
   const { id } = useParams()
@@ -17,13 +20,29 @@ function Editor() {
     contactInfo: {},
     education: [],
     experience: [],
-    settings: { template: 'modern' }
+    skills: [],
+    certifications: [],
+    settings: {
+      theme: 'modern',
+      fontSize: 12,
+      accentColor: '#6366f1'
+    }
   })
 
   useEffect(() => {
     if (id) {
       getResume(id).then(data => {
-        setResumeData(data)
+        setResumeData({
+          ...data,
+          skills: data.skills || [],
+          certifications: data.certifications || [],
+          settings: {
+            theme: 'modern',
+            fontSize: 12,
+            accentColor: '#6366f1',
+            ...(data.settings || {})
+          }
+        })
       }).catch(err => {
         console.error('Failed to load resume', err)
         navigate('/dashboard')
@@ -36,11 +55,33 @@ function Editor() {
     try {
       if (id) {
         const updated = await updateResume(id, resumeData)
-        if (updated) setResumeData(updated)
+        if (updated) {
+          setResumeData({
+            ...updated,
+            skills: updated.skills || [],
+            certifications: updated.certifications || [],
+            settings: {
+              theme: 'modern',
+              fontSize: 12,
+              accentColor: '#6366f1',
+              ...(updated.settings || {})
+            }
+          })
+        }
       } else {
         const newResume = await createResume(resumeData)
         if (newResume) {
-          setResumeData(newResume)
+          setResumeData({
+            ...newResume,
+            skills: newResume.skills || [],
+            certifications: newResume.certifications || [],
+            settings: {
+              theme: 'modern',
+              fontSize: 12,
+              accentColor: '#6366f1',
+              ...(newResume.settings || {})
+            }
+          })
           navigate(`/editor/${newResume._id}`)
         }
       }
@@ -60,6 +101,9 @@ function Editor() {
     { key: 'contactInfo', label: 'Contact', Component: ContactInfoSection },
     { key: 'education', label: 'Education', Component: EducationSection },
     { key: 'experience', label: 'Experience', Component: ExperienceSection },
+    { key: 'skills', label: 'Skills', Component: SkillsSection },
+    { key: 'certifications', label: 'Certifications', Component: CertificationsSection },
+    { key: 'settings', label: 'Customization', Component: SettingsSection },
   ]
 
   return (

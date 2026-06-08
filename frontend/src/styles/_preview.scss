@@ -112,12 +112,12 @@
 
     &-title {
       font-family: var(--font-primary, "Inter", sans-serif);
-      font-size: 1.125rem;
+      font-size: 1.125em;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #111111;
-      border-bottom: 2px solid #222222;
+      border-bottom: 2px solid var(--resume-accent-color, #222222);
       padding-bottom: 4px;
       margin-bottom: $spacing-md;
     }
@@ -134,34 +134,34 @@
     }
 
     &-title {
-      font-size: 1rem;
+      font-size: 1em;
       font-weight: 600;
       color: #111111;
       font-family: var(--font-primary, "Inter", sans-serif);
     }
 
     &-subtitle {
-      font-size: 0.875rem;
+      font-size: 0.875em;
       color: #444444;
       font-style: italic;
       margin-bottom: $spacing-xs;
     }
 
     &-company {
-      font-size: 0.875rem;
+      font-size: 0.875em;
       font-weight: 600;
       color: #222222;
     }
 
     &-date {
-      font-size: 0.875rem;
+      font-size: 0.875em;
       color: #555555;
       font-family: var(--font-primary, "Inter", sans-serif);
     }
   }
 
   &__text {
-    font-size: 0.875rem;
+    font-size: 0.875em;
     color: #333333;
     line-height: 1.5;
   }
@@ -184,7 +184,7 @@
     }
 
     .resume-template__name {
-      font-size: 2.25rem;
+      font-size: 2.25em;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: #111111;
@@ -192,9 +192,9 @@
     }
 
     .resume-template__title {
-      font-size: 1.125rem;
+      font-size: 1.125em;
       font-weight: 500;
-      color: #555555;
+      color: var(--resume-accent-color, #555555);
       margin-bottom: $spacing-sm;
     }
 
@@ -203,7 +203,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: $spacing-md;
-      font-size: 0.875rem;
+      font-size: 0.875em;
       color: #666666;
 
       span {
@@ -219,10 +219,10 @@
     }
 
     .resume-template__section-title {
-      border-bottom: 1px solid #e1e1e1;
+      border-bottom: 1px solid var(--resume-accent-color, #e1e1e1);
       text-transform: none;
       letter-spacing: normal;
-      font-size: 1.25rem;
+      font-size: 1.25em;
       padding-bottom: 6px;
     }
   }
@@ -261,7 +261,7 @@
     }
 
     .resume-template__name {
-      font-size: 1.75rem;
+      font-size: 1.75em;
       font-weight: 700;
       color: #111111;
       line-height: 1.2;
@@ -269,8 +269,8 @@
     }
 
     .resume-template__title {
-      font-size: 1rem;
-      color: #666666;
+      font-size: 1em;
+      color: var(--resume-accent-color, #666666);
       font-weight: 500;
     }
 
@@ -278,7 +278,7 @@
       display: flex;
       flex-direction: column;
       gap: $spacing-sm;
-      font-size: 0.875rem;
+      font-size: 0.875em;
       color: #444444;
       word-break: break-all;
     }

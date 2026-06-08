@@ -40,6 +40,14 @@ const experienceSchema = new mongoose.Schema({
   description: { type: String, default: '' }
 }, { _id: true });
 
+const certificationSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
+  name: { type: String, required: true },
+  issuer: { type: String, default: '' },
+  date: { type: Date, default: null },
+  description: { type: String, default: '' }
+}, { _id: true });
+
 const settingsSchema = new mongoose.Schema({
   theme: { type: String, default: 'modern', enum: ['professional', 'modern', 'creative', 'minimal', 'classic', 'executive', 'tech'] },
   fontSize: { type: Number, default: 12, min: 10, max: 16 },
@@ -64,6 +72,7 @@ const resumeSchema = new mongoose.Schema({
   experience: { type: [experienceSchema], default: [] },
   settings: { type: settingsSchema, default: () => ({}) },
   skills: { type: [String], default: [] },
+  certifications: { type: [certificationSchema], default: [] },
   atsScore: {
     type: Number,
     default: 0,

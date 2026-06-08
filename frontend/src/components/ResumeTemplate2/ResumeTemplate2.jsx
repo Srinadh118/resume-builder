@@ -13,17 +13,24 @@ const formatDate = (dateString) => {
 }
 
 function ResumeTemplate2({ resume }) {
-  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [] } = resume
+  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [], certifications = [], settings = {} } = resume
 
   return (
-    <div className="resume-template resume-template--classic" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+    <div 
+      className="resume-template resume-template--classic" 
+      style={{ 
+        fontFamily: 'Georgia, "Times New Roman", serif',
+        fontSize: settings.fontSize ? `${settings.fontSize}px` : '12px',
+        '--resume-accent-color': settings.accentColor || '#6366f1'
+      }}
+    >
       {/* Sidebar with Profile & Contact details */}
       <aside className="resume-template__sidebar">
         <div className="resume-template__profile">
           <h1 className="resume-template__name">
             {generalInfo.firstName || ''} {generalInfo.lastName || ''}
           </h1>
-          <p className="resume-template__title">
+          <p className="resume-template__title" style={{ color: 'var(--resume-accent-color, #666666)' }}>
             {generalInfo.title || generalInfo.jobTitle || ''}
           </p>
         </div>
@@ -90,7 +97,9 @@ function ResumeTemplate2({ resume }) {
               <strong>Twitter:</strong>
               <div style={{ wordBreak: 'break-all' }}>
                 <a href={formatContactLink('twitter', contactInfo.twitter)} className="resume-link" target="_blank" rel="noopener noreferrer">
-                  @{contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}
+                  {contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '').startsWith('@')
+                    ? contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')
+                    : `@${contactInfo.twitter.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, '')}`}
                 </a>
               </div>
             </div>
@@ -155,6 +164,28 @@ function ResumeTemplate2({ resume }) {
                 </div>
                 <p className="resume-template__item-subtitle">{edu.school}</p>
                 {edu.description && <p className="resume-template__text">{renderTextWithLinks(edu.description)}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {certifications && certifications.length > 0 && (
+          <section className="resume-template__section">
+            <h2 className="resume-template__section-title">
+              Certifications & Achievements
+            </h2>
+            {certifications.map((cert, index) => (
+              <div key={cert._id || index} className="resume-template__item">
+                <div className="resume-template__item-header">
+                  <span className="resume-template__item-title">{cert.name}</span>
+                  {cert.date && (
+                    <span className="resume-template__item-date">
+                      {formatDate(cert.date)}
+                    </span>
+                  )}
+                </div>
+                {cert.issuer && <p className="resume-template__item-subtitle">{cert.issuer}</p>}
+                {cert.description && <p className="resume-template__text">{renderTextWithLinks(cert.description)}</p>}
               </div>
             ))}
           </section>

@@ -13,15 +13,24 @@ const formatDate = (dateString) => {
 }
 
 function ResumeTemplate4({ resume }) {
-  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [] } = resume
+  const { generalInfo = {}, contactInfo = {}, education = [], experience = [], skills = [], certifications = [], settings = {} } = resume
 
   return (
-    <div className="resume-template resume-template--tech" style={{ fontFamily: 'Roboto, sans-serif', color: '#171717', lineHeight: '1.5' }}>
+    <div 
+      className="resume-template resume-template--tech" 
+      style={{ 
+        fontFamily: 'Roboto, sans-serif', 
+        color: '#171717', 
+        lineHeight: '1.5',
+        fontSize: settings.fontSize ? `${settings.fontSize}px` : '12px',
+        '--resume-accent-color': settings.accentColor || '#0070f3'
+      }}
+    >
       <header className="resume-template__header" style={{ marginBottom: '20px' }}>
         <h1 className="resume-template__name" style={{ fontSize: '1.75rem', fontWeight: '700', color: '#000', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
           {generalInfo.firstName || ''} {generalInfo.lastName || ''}
         </h1>
-        <p className="resume-template__title" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.85rem', fontWeight: '500', color: '#0070f3', textTransform: 'uppercase', margin: '0 0 8px 0' }}>
+        <p className="resume-template__title" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.85rem', fontWeight: '500', color: 'var(--resume-accent-color, #0070f3)', textTransform: 'uppercase', margin: '0 0 8px 0' }}>
           // {generalInfo.title || generalInfo.jobTitle || ''}
         </p>
         <div className="resume-template__contact" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.75rem', color: '#666', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
@@ -143,10 +152,38 @@ function ResumeTemplate4({ resume }) {
         </section>
       )}
 
+      {certifications && certifications.length > 0 && (
+        <section className="resume-template__section" style={{ marginBottom: '20px' }}>
+          <h2 className="resume-template__section-title" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.8rem', fontWeight: '600', color: '#000', textTransform: 'uppercase', borderBottom: '1px solid #eaeaea', paddingBottom: '4px', marginBottom: '8px' }}>
+            [04] certifications & achievements
+          </h2>
+          {certifications.map((cert, index) => (
+            <div key={cert._id || index} className="resume-template__item" style={{ marginBottom: '15px' }}>
+              <div className="resume-template__item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <h3 className="resume-template__item-title" style={{ fontSize: '0.9rem', fontWeight: '600', color: '#000', margin: 0 }}>
+                  {cert.name}
+                </h3>
+                {cert.date && (
+                  <span className="resume-template__item-date" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.75rem', color: '#888' }}>
+                    {formatDate(cert.date)}
+                  </span>
+                )}
+              </div>
+              {cert.issuer && (
+                <p className="resume-template__item-subtitle" style={{ fontFamily: '"Roboto Mono", monospace', margin: '2px 0 6px 0', fontSize: '0.75rem', color: '#444' }}>
+                  @ {cert.issuer}
+                </p>
+              )}
+              {cert.description && <p className="resume-template__text" style={{ fontSize: '0.85rem', color: '#333' }}>{renderTextWithLinks(cert.description)}</p>}
+            </div>
+          ))}
+        </section>
+      )}
+
       {skills.length > 0 && (
         <section className="resume-template__section" style={{ marginBottom: '20px' }}>
           <h2 className="resume-template__section-title" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.8rem', fontWeight: '600', color: '#000', textTransform: 'uppercase', borderBottom: '1px solid #eaeaea', paddingBottom: '4px', marginBottom: '8px' }}>
-            [04] skills
+            [05] skills
           </h2>
           <p className="resume-template__text" style={{ fontFamily: '"Roboto Mono", monospace', fontSize: '0.75rem', color: '#333', wordBreak: 'break-word', lineHeight: '1.6' }}>
             {skills.join(', ')}
