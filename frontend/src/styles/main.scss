@@ -4,4 +4,12 @@
 @use "variables";
 @use "mixins";
 @use "base";
+@use "layout";
+@use "navbar";
+@use "footer";
+@use "landing";
+@use "auth";
+@use "dashboard";
 @use "editor";
+@use "settings";
+@use "preview";

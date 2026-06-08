@@ -1,0 +1,325 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.preview-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    padding: $spacing-md $spacing-xl;
+    border-radius: $border-radius-xl;
+    box-shadow: $box-shadow;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: $text-primary;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+  }
+
+  &__template-select {
+    height: 40px;
+    padding: 0 $spacing-lg 0 $spacing-md;
+    font-family: $font-primary;
+    font-size: 0.875rem;
+    color: $text-primary;
+    background-color: $bg-surface;
+    border: 1px solid $border-medium;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    outline: none;
+    transition: border-color $transition-fast;
+
+    &:focus {
+      border-color: $accent;
+    }
+  }
+
+  &__download-btn {
+    @include capsule-button($accent, $white, $border-radius-md);
+    height: 40px;
+    font-size: 0.875rem;
+  }
+
+  &__edit-btn {
+    @include capsule-button($bg-element, $text-primary, $border-radius-md);
+    height: 40px;
+    font-size: 0.875rem;
+    border: 1px solid $border-medium;
+
+    &:hover {
+      background-color: $border-light;
+    }
+  }
+
+  &__content {
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-lg;
+    padding: $spacing-3xl;
+    box-shadow: $box-shadow-hover;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__loading,
+  &__empty {
+    text-align: center;
+    padding: $spacing-4xl 0;
+    font-size: 1rem;
+    color: $text-secondary;
+  }
+}
+
+.resume-preview {
+  width: 100%;
+}
+
+// ============================================
+// RESUME TEMPLATES - Shared / Print Optimized
+// ============================================
+.resume-template {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  text-align: left;
+  font-family: var(--font-serif, "Georgia", "Times New Roman", serif);
+  line-height: 1.5;
+
+  &__section {
+    margin-bottom: $spacing-xl;
+
+    &-title {
+      font-family: var(--font-primary, "Inter", sans-serif);
+      font-size: 1.125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #111111;
+      border-bottom: 2px solid #222222;
+      padding-bottom: 4px;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  &__item {
+    margin-bottom: $spacing-md;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: $spacing-sm;
+    }
+
+    &-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111111;
+      font-family: var(--font-primary, "Inter", sans-serif);
+    }
+
+    &-subtitle {
+      font-size: 0.875rem;
+      color: #444444;
+      font-style: italic;
+      margin-bottom: $spacing-xs;
+    }
+
+    &-company {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #222222;
+    }
+
+    &-date {
+      font-size: 0.875rem;
+      color: #555555;
+      font-family: var(--font-primary, "Inter", sans-serif);
+    }
+  }
+
+  &__text {
+    font-size: 0.875rem;
+    color: #333333;
+    line-height: 1.5;
+  }
+
+  &__responsibilities {
+    margin-top: $spacing-xs;
+    
+    li {
+      margin-bottom: 4px;
+    }
+  }
+
+  // Modern Template 1
+  &--modern {
+    font-family: var(--font-primary, "Inter", sans-serif);
+    
+    .resume-template__header {
+      text-align: center;
+      margin-bottom: $spacing-2xl;
+    }
+
+    .resume-template__name {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #111111;
+      margin-bottom: $spacing-xs;
+    }
+
+    .resume-template__title {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #555555;
+      margin-bottom: $spacing-sm;
+    }
+
+    .resume-template__contact {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: $spacing-md;
+      font-size: 0.875rem;
+      color: #666666;
+
+      span {
+        display: inline-flex;
+        align-items: center;
+
+        &:not(:last-child)::after {
+          content: "•";
+          margin-left: $spacing-md;
+          color: #cccccc;
+        }
+      }
+    }
+
+    .resume-template__section-title {
+      border-bottom: 1px solid #e1e1e1;
+      text-transform: none;
+      letter-spacing: normal;
+      font-size: 1.25rem;
+      padding-bottom: 6px;
+    }
+  }
+
+  // Classic Template 2
+  &--classic {
+    display: flex;
+    gap: $spacing-2xl;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: $spacing-xl;
+    }
+
+    .resume-template__sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      border-right: 1px solid #eeeeee;
+      padding-right: $spacing-xl;
+
+      @media (max-width: 600px) {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid #eeeeee;
+        padding-bottom: $spacing-xl;
+      }
+    }
+
+    .resume-template__main {
+      flex-grow: 1;
+    }
+
+    .resume-template__profile {
+      margin-bottom: $spacing-xl;
+    }
+
+    .resume-template__name {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.2;
+      margin-bottom: $spacing-xs;
+    }
+
+    .resume-template__title {
+      font-size: 1rem;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    .resume-template__contact-classic {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+      font-size: 0.875rem;
+      color: #444444;
+      word-break: break-all;
+    }
+  }
+}
+
+// ============================================
+// Print Styles
+// ============================================
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .navbar,
+  .footer,
+  .preview-page__controls {
+    display: none !important;
+  }
+
+  .layout__main {
+    padding-top: 0 !important;
+  }
+
+  .preview-page {
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .preview-page__content {
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  .resume-template {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

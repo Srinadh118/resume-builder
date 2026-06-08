@@ -1,0 +1,195 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: $text-primary;
+  }
+
+  &__new-btn {
+    @include capsule-button($accent, $white, $border-radius-md);
+    font-size: 0.875rem;
+    padding: 10px 20px;
+  }
+
+  &__loading,
+  &__error {
+    text-align: center;
+    padding: $spacing-3xl 0;
+    font-size: 1rem;
+    color: $text-secondary;
+  }
+
+  &__error {
+    color: #ee0000;
+  }
+
+  &__empty {
+    background-color: $bg-surface;
+    border: 1px dashed $border-medium;
+    border-radius: $border-radius-xl;
+    padding: $spacing-4xl $spacing-2xl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px;
+    margin: $spacing-3xl auto;
+    box-shadow: $box-shadow;
+
+    &-icon {
+      font-size: 3.5rem;
+      margin-bottom: $spacing-md;
+    }
+
+    &-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: $text-primary;
+      margin-bottom: $spacing-xs;
+    }
+
+    &-text {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      margin-bottom: $spacing-xl;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-lg;
+    width: 100%;
+  }
+}
+
+.resume-card {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  box-shadow: $box-shadow;
+  transition: all $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $box-shadow-hover;
+    border-color: rgba($accent, 0.2);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $spacing-sm;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: $text-primary;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__date {
+    font-size: 0.75rem;
+    color: $text-tertiary;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    flex-grow: 1;
+  }
+
+  &__job-title {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__score {
+    margin-top: $spacing-xs;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+    border-top: 1px solid $border-light;
+    padding-top: $spacing-md;
+    margin-top: $spacing-xs;
+  }
+
+  &__btn {
+    font-family: $font-primary;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: all $transition-fast;
+    flex: 1;
+    text-align: center;
+    border: none;
+
+    &--edit {
+      background-color: $accent;
+      color: $white;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    &--preview {
+      background-color: $bg-element;
+      color: $text-primary;
+      border: 1px solid $border-medium;
+
+      &:hover {
+        background-color: $border-light;
+      }
+    }
+
+    &--delete {
+      background-color: transparent;
+      color: #ee0000;
+      border: 1px solid rgba(238, 0, 0, 0.2);
+
+      &:hover {
+        background-color: rgba(238, 0, 0, 0.05);
+        border-color: #ee0000;
+      }
+    }
+  }
+}

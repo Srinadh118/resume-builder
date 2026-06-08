@@ -262,3 +262,198 @@
     padding: $spacing-xl 0;
   }
 }
+
+// ============================================
+// EDITOR LAYOUT & SIDEBAR
+// ============================================
+.editor {
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100%;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  &__sidebar {
+    width: 300px;
+    border-right: 1px solid $border-light;
+    background-color: $bg-surface;
+    padding: $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid $border-light;
+      padding: $spacing-md;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: $text-primary;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: $spacing-xs;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    &-item {
+      font-family: $font-primary;
+      text-align: left;
+      padding: 10px 16px;
+      border-radius: $border-radius-md;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background-color: transparent;
+      border: none;
+      color: $text-secondary;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover {
+        background-color: $bg-element;
+        color: $text-primary;
+      }
+
+      &--active {
+        background-color: rgba($accent, 0.08);
+        color: $accent;
+
+        &:hover {
+          background-color: rgba($accent, 0.12);
+          color: $accent;
+        }
+      }
+
+      @media (max-width: 768px) {
+        white-space: nowrap;
+        padding: 8px 14px;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-top: auto;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+      margin-top: $spacing-sm;
+    }
+  }
+
+  &__save-btn {
+    @include capsule-button($accent, $white, $border-radius-md);
+    height: 40px;
+    font-size: 0.875rem;
+    
+    &:disabled {
+      background-color: $border-medium;
+      cursor: not-allowed;
+    }
+  }
+
+  &__preview-btn {
+    @include capsule-button($bg-element, $text-primary, $border-radius-md);
+    height: 40px;
+    font-size: 0.875rem;
+    border: 1px solid $border-medium;
+
+    &:hover {
+      background-color: $border-light;
+    }
+  }
+
+  &__content {
+    flex-grow: 1;
+    padding: $spacing-2xl;
+    overflow-y: auto;
+    background-color: $bg-page;
+
+    @media (max-width: 768px) {
+      padding: $spacing-md;
+      overflow-y: visible;
+    }
+  }
+}
+
+// ============================================
+// ATS PROGRESS SCORE BAR
+// ============================================
+.ats-progress {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  width: 100%;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $text-secondary;
+  }
+
+  &__value {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  &__bar {
+    height: 8px;
+    background-color: $border-light;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &--low {
+      background-color: #ee0000;
+    }
+
+    &--medium {
+      background-color: #f5a623;
+    }
+
+    &--high {
+      background-color: #0070f3;
+    }
+  }
+
+  &--small {
+    .ats-progress__bar {
+      height: 6px;
+    }
+  }
+}
+

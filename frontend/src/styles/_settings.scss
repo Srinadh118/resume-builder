@@ -1,0 +1,130 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.settings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2xl;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__section {
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $box-shadow;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    &-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: $text-primary;
+      border-bottom: 1px solid $border-light;
+      padding-bottom: $spacing-sm;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    &-label {
+      font-weight: 500;
+      color: $text-secondary;
+      width: 100px;
+      flex-shrink: 0;
+    }
+
+    &-value {
+      color: $text-primary;
+    }
+  }
+
+  &__message,
+  &__error {
+    border-radius: $border-radius-md;
+    padding: $spacing-sm $spacing-md;
+    font-size: 0.8125rem;
+    text-align: center;
+    animation: fadeIn $transition-fast;
+  }
+
+  &__message {
+    background-color: rgba(122, 59, 219, 0.08);
+    color: $accent;
+    border: 1px solid rgba(122, 59, 219, 0.2);
+  }
+
+  &__error {
+    background-color: rgba(238, 0, 0, 0.08);
+    color: #ee0000;
+    border: 1px solid rgba(238, 0, 0, 0.2);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    &-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: $text-primary;
+    }
+
+    &-input {
+      @include input-style();
+      height: 40px;
+    }
+
+    &-submit {
+      @include capsule-button($accent, $white, $border-radius-md);
+      height: 40px;
+      font-size: 0.875rem;
+      align-self: flex-start;
+      margin-top: $spacing-xs;
+    }
+  }
+
+  &__logout-btn {
+    @include capsule-button(transparent, #ee0000, $border-radius-md);
+    border: 1px solid rgba(238, 0, 0, 0.2);
+    align-self: flex-start;
+    padding: 10px 20px;
+    font-size: 0.875rem;
+
+    &:hover {
+      background-color: rgba(238, 0, 0, 0.05);
+      border-color: #ee0000;
+      color: #ee0000;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use "variables" as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__main {
+    flex: 1 0 auto;
+    padding-top: 64px; // Account for fixed navbar
+    background-color: $bg-page;
+  }
+}

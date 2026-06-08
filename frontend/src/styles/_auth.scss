@@ -1,0 +1,112 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4xl $spacing-lg;
+  min-height: calc(100vh - 128px);
+
+  &__container {
+    width: 100%;
+    max-width: 440px;
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-xl;
+    padding: $spacing-2xl;
+    box-shadow: $box-shadow-hover;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: $text-primary;
+    text-align: center;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__error {
+    background-color: rgba(238, 0, 0, 0.08);
+    color: #ee0000;
+    border: 1px solid rgba(238, 0, 0, 0.2);
+    border-radius: $border-radius-md;
+    padding: $spacing-sm;
+    font-size: 0.8125rem;
+    text-align: center;
+    margin-bottom: $spacing-md;
+    animation: fadeIn $transition-fast;
+  }
+
+  &__footer {
+    font-size: 0.8125rem;
+    color: $text-secondary;
+    text-align: center;
+    margin-top: $spacing-xl;
+  }
+
+  &__link {
+    color: $accent;
+    font-weight: 500;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  &__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  &__input {
+    @include input-style();
+    height: 40px;
+  }
+
+  &__submit {
+    @include capsule-button($accent, $white, $border-radius-lg);
+    height: 44px;
+    font-size: 0.875rem;
+    margin-top: $spacing-sm;
+    
+    &:disabled {
+      background-color: $border-medium;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
