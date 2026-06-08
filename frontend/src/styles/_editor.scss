@@ -42,6 +42,7 @@
 
     @media (max-width: 600px) {
       grid-template-columns: 1fr;
+
       &--2-1 {
         grid-template-columns: 1fr;
       }
@@ -386,7 +387,7 @@
     align-items: center;
     justify-content: center;
     gap: $spacing-xs;
-    
+
     &:disabled {
       background-color: $border-medium;
       cursor: not-allowed;
@@ -657,4 +658,3 @@
     }
   }
 }
-
