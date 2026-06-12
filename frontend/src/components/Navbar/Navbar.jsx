@@ -54,6 +54,7 @@ function Navbar() {
         {user ? (
           <>
             <Link to="/dashboard" className={isActive('/dashboard')} onClick={() => setMenuOpen(false)}>Dashboard</Link>
+            <Link to="/templates" className={isActive('/templates')} onClick={() => setMenuOpen(false)}>Templates</Link>
             <Link to="/editor" className={isActive('/editor')} onClick={() => setMenuOpen(false)}>Editor</Link>
             <Link to="/settings" className={isActive('/settings')} onClick={() => setMenuOpen(false)}>Settings</Link>
             <span className="navbar__user">{user?.firstName ?? ''}</span>
@@ -64,6 +65,7 @@ function Navbar() {
           </>
         ) : (
           <>
+            <Link to="/templates" className={isActive('/templates')} onClick={() => setMenuOpen(false)}>Templates</Link>
             <Link to="/login" className={isActive('/login')} onClick={() => setMenuOpen(false)}>Log In</Link>
             <Link to="/register" className="navbar__link navbar__link--cta" onClick={() => setMenuOpen(false)}>Get Started</Link>
             <button onClick={toggleTheme} className="navbar__theme-toggle" aria-label="Toggle Theme">

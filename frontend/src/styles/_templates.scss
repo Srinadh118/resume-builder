@@ -1,0 +1,550 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.templates-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg $spacing-4xl $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3xl;
+
+  &__hero {
+    text-align: center;
+    position: relative;
+    padding: $spacing-3xl 0;
+    overflow: hidden;
+    border-radius: $border-radius-xl;
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    box-shadow: $box-shadow;
+
+    // Atmospheric mesh gradient backdrop as per DESIGN.md
+    &::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 140%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(80, 227, 194, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 70% 30%, rgba(121, 40, 202, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 80%, rgba(255, 77, 77, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 $spacing-lg;
+    }
+
+    &-eyebrow {
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $purple-muted;
+      margin-bottom: $spacing-sm;
+    }
+
+    &-title {
+      font-family: $font-primary;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: $text-primary;
+      margin-bottom: $spacing-md;
+
+      @media (max-width: 600px) {
+        font-size: 1.875rem;
+      }
+    }
+
+    &-subtitle {
+      font-size: 1.1rem;
+      color: $text-secondary;
+      line-height: 1.5;
+    }
+  }
+
+  &__header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $border-light;
+    padding-bottom: $spacing-sm;
+    margin-bottom: $spacing-sm;
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: $text-primary;
+    }
+
+    &-action {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-lg;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Template card styling
+.template-card {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform $transition-fast, border-color $transition-fast, box-shadow $transition-fast;
+  position: relative;
+  box-shadow: $box-shadow;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: $accent;
+    box-shadow: $box-shadow-hover;
+
+    .template-card__actions {
+      opacity: 1;
+    }
+  }
+
+  &__preview-container {
+    position: relative;
+    aspect-ratio: 1.414 / 1; // A4 aspect ratio representation
+    background-color: $bg-element;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-md;
+    overflow: hidden;
+  }
+
+  // Visual layout mockup representing templates
+  &__mockup {
+    width: 90%;
+    height: 90%;
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+
+    // Mini lines representation
+    .mock-line {
+      height: 4px;
+      background-color: $border-light;
+      border-radius: 2px;
+      width: 100%;
+
+      &--accent {
+        background-color: $purple-muted;
+      }
+      &--short {
+        width: 40%;
+      }
+      &--medium {
+        width: 70%;
+      }
+      &--title {
+        height: 8px;
+        border-radius: 4px;
+      }
+      &--header {
+        height: 12px;
+        border-radius: 6px;
+      }
+    }
+
+    &--modern {
+      align-items: center;
+      .mockup-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        width: 100%;
+        margin-bottom: 4px;
+      }
+    }
+
+    &--classic {
+      flex-direction: row;
+      gap: 10px;
+
+      .mockup-sidebar {
+        width: 25%;
+        border-right: 1px solid $border-light;
+        padding-right: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .mockup-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+
+    &--executive {
+      .mockup-header {
+        border-bottom: 2px solid $purple-muted;
+        padding-bottom: 4px;
+        margin-bottom: 4px;
+        width: 100%;
+      }
+    }
+
+    &--tech {
+      font-family: $font-mono;
+      .mock-line {
+        background-color: $border-light;
+      }
+      .mockup-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+    }
+
+    &--creative {
+      border-top: 6px solid var(--template-accent, #6366f1);
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(23, 23, 23, 0.75); // Dark overlay
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-md;
+    opacity: 0;
+    transition: opacity $transition-fast;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+  }
+
+  &__action-btn {
+    @include capsule-button($accent, $text-accent, $border-radius-md);
+    width: 160px;
+    height: 38px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+    border: 1px solid transparent;
+
+    &--secondary {
+      background-color: transparent;
+      color: $white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: $white;
+      }
+    }
+
+    &--primary {
+      background-color: $white;
+      color: $black;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+    }
+  }
+
+  &__info {
+    padding: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex-grow: 1;
+  }
+
+  &__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  &__badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: $border-radius-lg;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+
+    &--standard {
+      background-color: $bg-element;
+      color: $text-secondary;
+      border: 1px solid $border-light;
+    }
+
+    &--custom {
+      background-color: $purple-light;
+      color: $purple-muted;
+      border: 1px solid rgba(0, 112, 243, 0.2);
+    }
+  }
+
+  &__desc {
+    font-size: 0.8rem;
+    color: $text-secondary;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  &__footer {
+    border-top: 1px solid $border-light;
+    padding: $spacing-sm $spacing-md;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: $text-tertiary;
+
+    .template-card__custom-actions {
+      display: flex;
+      gap: $spacing-sm;
+
+      button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: $text-tertiary;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: color $transition-fast;
+
+        &:hover {
+          &.edit { color: $text-primary; }
+          &.delete { color: var(--error, #ee0000); }
+        }
+      }
+    }
+  }
+}
+
+// Modal popup styling
+.templates-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  padding: $spacing-md;
+  backdrop-filter: blur(4px);
+}
+
+.templates-modal {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-xl;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  animation: modal-enter $transition-fast;
+
+  &__header {
+    padding: $spacing-lg $spacing-xl;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+    }
+
+    &-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: $text-tertiary;
+      transition: color $transition-fast;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+
+      &:hover {
+        color: $text-primary;
+      }
+    }
+  }
+
+  &__body {
+    padding: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__option {
+    border: 1px solid $border-light;
+    border-radius: $border-radius-lg;
+    padding: $spacing-md;
+    cursor: pointer;
+    transition: border-color $transition-fast, background-color $transition-fast;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    background: none;
+    width: 100%;
+
+    &:hover {
+      border-color: $accent;
+      background-color: $bg-element;
+    }
+
+    &-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: $text-primary;
+    }
+
+    &-desc {
+      font-size: 0.8rem;
+      color: $text-secondary;
+    }
+  }
+
+  &__resume-select {
+    width: 100%;
+    height: 40px;
+    padding: 0 $spacing-md;
+    border: 1px solid $border-medium;
+    border-radius: $border-radius-md;
+    background-color: $bg-surface;
+    color: $text-primary;
+    font-size: 0.875rem;
+    outline: none;
+    cursor: pointer;
+    margin-top: $spacing-sm;
+
+    &:focus {
+      border-color: $accent;
+    }
+  }
+
+  &__footer {
+    padding: $spacing-md $spacing-xl;
+    border-top: 1px solid $border-light;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-sm;
+    background-color: $bg-element;
+
+    button {
+      height: 36px;
+      padding: 0 $spacing-lg;
+      border-radius: $border-radius-md;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color $transition-fast, color $transition-fast, border-color $transition-fast;
+    }
+
+    .cancel-btn {
+      background-color: transparent;
+      border-color: $border-medium;
+      color: $text-secondary;
+
+      &:hover {
+        background-color: $border-light;
+        color: $text-primary;
+      }
+    }
+
+    .confirm-btn {
+      background-color: $accent;
+      color: $text-accent;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled):hover {
+        background-color: rgba(23, 23, 23, 0.8);
+      }
+    }
+  }
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

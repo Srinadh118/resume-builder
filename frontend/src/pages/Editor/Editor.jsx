@@ -54,6 +54,18 @@ function Editor() {
         console.error('Failed to load resume', err)
         navigate('/dashboard')
       })
+    } else {
+      const searchParams = new URLSearchParams(window.location.search)
+      const queryTheme = searchParams.get('template')
+      if (queryTheme) {
+        setResumeData(prev => ({
+          ...prev,
+          settings: {
+            ...prev.settings,
+            theme: queryTheme
+          }
+        }))
+      }
     }
   }, [id, getResume, navigate])
 

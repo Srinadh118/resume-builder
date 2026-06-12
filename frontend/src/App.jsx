@@ -9,6 +9,7 @@ import Editor from './pages/Editor/Editor'
 import Preview from './pages/Preview/Preview'
 import Settings from './pages/Settings/Settings'
 import CustomTemplateBuilder from './pages/CustomTemplateBuilder/CustomTemplateBuilder'
+import Templates from './pages/Templates/Templates'
 import { useAuth } from './context/AuthContext'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="templates" element={<Templates />} />
         <Route path="editor/:id?" element={<Editor />} />
         <Route path="preview/:id?" element={<Preview />} />
         <Route path="settings" element={<Settings />} />
